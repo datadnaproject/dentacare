@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 export function Navbar() {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleMouseEnter = () => {
+    setDropdownOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    setDropdownOpen(false);
+  };
+
+  const handleLogout = () => {
+    // Logic for handling logout
+    setIsLoggedIn(false);
+    // Additional logic for logout if needed
+  };
+
   return (
     <>
       {/* Navbar Start */}
@@ -72,7 +89,7 @@ export function Navbar() {
             Appointment
           </NavLink>
 
-          {/* user login */}
+          {/* User login */}
           <div
             className="dropdown"
             onMouseEnter={handleMouseEnter}
@@ -168,7 +185,7 @@ export function Navbar() {
               )}
             </div>
           </div>
-          {/* user login */}
+          {/* User login */}
         </div>
       </nav>
       {/* Navbar End */}
