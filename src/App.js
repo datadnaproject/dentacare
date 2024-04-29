@@ -8,12 +8,17 @@ import { PricingPage } from "./components/PricingPage";
 import { TeamPage } from "./components/TeamPage";
 import { TestimonialPage } from "./components/TestimonialPage";
 import { AppointmentPage } from "./components/AppointmentPage";
+
+import LoginForm from "./components/signin";
+import SignUpForm from "./components/signup";
+import Profile from "./components/profile";
+
 import "./App.css";
-import './assets/css/bootstrap.min.css'
-import './assets/css/style.css'
-import './assets/lib/animate/animate.css'
-import './assets/lib/animate/animate.min.css'
-import './assets/js/main'
+import "./assets/css/bootstrap.min.css";
+import "./assets/css/style.css";
+import "./assets/lib/animate/animate.css";
+import "./assets/lib/animate/animate.min.css";
+import "./assets/js/main";
 /* import './assets/lib/owlcarousel/assets/owl.carousel.css'
 import './assets/lib/owlcarousel/assets/owl.carousel.min.css'
 import './assets/lib/owlcarousel/assets/owl.theme.default.css'
@@ -33,6 +38,9 @@ function App() {
           <Route path="/testimonial" element={<TestimonialPage />} />
           <Route path="/appointment" element={<AppointmentPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/signin" element={<LoginForm />} />
+          <Route path="/signup" element={<SignUpForm />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<HomePage />} />
         </Routes>
       </BrowserRouter>

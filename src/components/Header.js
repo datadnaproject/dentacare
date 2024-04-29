@@ -1,3 +1,6 @@
+import React from "react";
+import { NavLink } from "react-router-dom";
+
 export function Header({ pageTitle, subTitle }) {
   return (
     <>
@@ -8,13 +11,13 @@ export function Header({ pageTitle, subTitle }) {
             <h1 className="display-3 text-white animated zoomIn">
               {pageTitle}
             </h1>
-            <a href="/" className="h4 text-white">
+            <NavLink href="/" className="h4 text-white">
               Home
-            </a>
+            </NavLink>
             <i className="far fa-circle text-white px-2" />
-            <a href="" className="h4 text-white">
+            <NavLink href="" className="h4 text-white">
               {subTitle}
-            </a>
+            </NavLink>
           </div>
         </div>
       </div>

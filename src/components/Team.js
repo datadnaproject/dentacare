@@ -1,8 +1,12 @@
-import team1 from '../assets/img/team-1.jpg'
-import team2 from '../assets/img/team-2.jpg'
-import team3 from '../assets/img/team-3.jpg'
-import team4 from '../assets/img/team-4.jpg'
-import team5 from '../assets/img/team-5.jpg'
+import React from "react";
+import { NavLink } from "react-router-dom";
+
+import team1 from "../assets/img/team-1.jpg";
+import team2 from "../assets/img/team-2.jpg";
+import team3 from "../assets/img/team-3.jpg";
+import team4 from "../assets/img/team-4.jpg";
+import team5 from "../assets/img/team-5.jpg";
+
 export function Team() {
   return (
     <>
@@ -18,12 +22,12 @@ export function Team() {
                 <h1 className="display-6 mb-4">
                   Meet Our Certified &amp; Experienced Dentist
                 </h1>
-                <a
-                  href="appointment.html"
+                <NavLink
+                  to="appointment.html"
                   className="btn btn-primary py-3 px-5"
                 >
                   Appointment
-                </a>
+                </NavLink>
               </div>
             </div>
             <div className="col-lg-4 wow slideInUp" data-wow-delay="0.3s">
@@ -38,18 +42,18 @@ export function Team() {
                     alt=""
                   />
                   <div className="position-absolute top-100 start-50 translate-middle bg-light rounded p-2 d-flex">
-                    <a className="btn btn-primary btn-square m-1" href="#">
+                    <NavLink className="btn btn-primary btn-square m-1" to="#">
                       <i className="fab fa-twitter fw-normal" />
-                    </a>
-                    <a className="btn btn-primary btn-square m-1" href="#">
+                    </NavLink>
+                    <NavLink className="btn btn-primary btn-square m-1" to="#">
                       <i className="fab fa-facebook-f fw-normal" />
-                    </a>
-                    <a className="btn btn-primary btn-square m-1" href="#">
+                    </NavLink>
+                    <NavLink className="btn btn-primary btn-square m-1" to="#">
                       <i className="fab fa-linkedin-in fw-normal" />
-                    </a>
-                    <a className="btn btn-primary btn-square m-1" href="#">
+                    </NavLink>
+                    <NavLink className="btn btn-primary btn-square m-1" to="#">
                       <i className="fab fa-instagram fw-normal" />
-                    </a>
+                    </NavLink>
                   </div>
                 </div>
                 <div className="team-text position-relative bg-light text-center rounded-bottom p-4 pt-5">
@@ -70,18 +74,18 @@ export function Team() {
                     alt=""
                   />
                   <div className="position-absolute top-100 start-50 translate-middle bg-light rounded p-2 d-flex">
-                    <a className="btn btn-primary btn-square m-1" href="#">
+                    <NavLink className="btn btn-primary btn-square m-1" to="#">
                       <i className="fab fa-twitter fw-normal" />
-                    </a>
-                    <a className="btn btn-primary btn-square m-1" href="#">
+                    </NavLink>
+                    <NavLink className="btn btn-primary btn-square m-1" to="#">
                       <i className="fab fa-facebook-f fw-normal" />
-                    </a>
-                    <a className="btn btn-primary btn-square m-1" href="#">
+                    </NavLink>
+                    <NavLink className="btn btn-primary btn-square m-1" to="#">
                       <i className="fab fa-linkedin-in fw-normal" />
-                    </a>
-                    <a className="btn btn-primary btn-square m-1" href="#">
+                    </NavLink>
+                    <NavLink className="btn btn-primary btn-square m-1" to="#">
                       <i className="fab fa-instagram fw-normal" />
-                    </a>
+                    </NavLink>
                   </div>
                 </div>
                 <div className="team-text position-relative bg-light text-center rounded-bottom p-4 pt-5">
@@ -102,18 +106,18 @@ export function Team() {
                     alt=""
                   />
                   <div className="position-absolute top-100 start-50 translate-middle bg-light rounded p-2 d-flex">
-                    <a className="btn btn-primary btn-square m-1" href="#">
+                    <NavLink className="btn btn-primary btn-square m-1" to="#">
                       <i className="fab fa-twitter fw-normal" />
-                    </a>
-                    <a className="btn btn-primary btn-square m-1" href="#">
+                    </NavLink>
+                    <NavLink className="btn btn-primary btn-square m-1" to="#">
                       <i className="fab fa-facebook-f fw-normal" />
-                    </a>
-                    <a className="btn btn-primary btn-square m-1" href="#">
+                    </NavLink>
+                    <NavLink className="btn btn-primary btn-square m-1" to="#">
                       <i className="fab fa-linkedin-in fw-normal" />
-                    </a>
-                    <a className="btn btn-primary btn-square m-1" href="#">
+                    </NavLink>
+                    <NavLink className="btn btn-primary btn-square m-1" to="#">
                       <i className="fab fa-instagram fw-normal" />
-                    </a>
+                    </NavLink>
                   </div>
                 </div>
                 <div className="team-text position-relative bg-light text-center rounded-bottom p-4 pt-5">
@@ -134,18 +138,18 @@ export function Team() {
                     alt=""
                   />
                   <div className="position-absolute top-100 start-50 translate-middle bg-light rounded p-2 d-flex">
-                    <a className="btn btn-primary btn-square m-1" href="#">
+                    <NavLink className="btn btn-primary btn-square m-1" to="#">
                       <i className="fab fa-twitter fw-normal" />
-                    </a>
-                    <a className="btn btn-primary btn-square m-1" href="#">
+                    </NavLink>
+                    <NavLink className="btn btn-primary btn-square m-1" to="#">
                       <i className="fab fa-facebook-f fw-normal" />
-                    </a>
-                    <a className="btn btn-primary btn-square m-1" href="#">
+                    </NavLink>
+                    <NavLink className="btn btn-primary btn-square m-1" to="#">
                       <i className="fab fa-linkedin-in fw-normal" />
-                    </a>
-                    <a className="btn btn-primary btn-square m-1" href="#">
+                    </NavLink>
+                    <NavLink className="btn btn-primary btn-square m-1" to="#">
                       <i className="fab fa-instagram fw-normal" />
-                    </a>
+                    </NavLink>
                   </div>
                 </div>
                 <div className="team-text position-relative bg-light text-center rounded-bottom p-4 pt-5">
@@ -166,18 +170,18 @@ export function Team() {
                     alt=""
                   />
                   <div className="position-absolute top-100 start-50 translate-middle bg-light rounded p-2 d-flex">
-                    <a className="btn btn-primary btn-square m-1" href="#">
+                    <NavLink className="btn btn-primary btn-square m-1" to="#">
                       <i className="fab fa-twitter fw-normal" />
-                    </a>
-                    <a className="btn btn-primary btn-square m-1" href="#">
+                    </NavLink>
+                    <NavLink className="btn btn-primary btn-square m-1" to="#">
                       <i className="fab fa-facebook-f fw-normal" />
-                    </a>
-                    <a className="btn btn-primary btn-square m-1" href="#">
+                    </NavLink>
+                    <NavLink className="btn btn-primary btn-square m-1" to="#">
                       <i className="fab fa-linkedin-in fw-normal" />
-                    </a>
-                    <a className="btn btn-primary btn-square m-1" href="#">
+                    </NavLink>
+                    <NavLink className="btn btn-primary btn-square m-1" to="#">
                       <i className="fab fa-instagram fw-normal" />
-                    </a>
+                    </NavLink>
                   </div>
                 </div>
                 <div className="team-text position-relative bg-light text-center rounded-bottom p-4 pt-5">
