@@ -14,17 +14,16 @@ import './assets/css/style.css'
 import './assets/lib/animate/animate.css'
 import './assets/lib/animate/animate.min.css'
 import './assets/js/main'
-/* import './assets/lib/owlcarousel/assets/owl.carousel.css'
-import './assets/lib/owlcarousel/assets/owl.carousel.min.css'
-import './assets/lib/owlcarousel/assets/owl.theme.default.css'
-import './assets/lib/owlcarousel/assets/owl.theme.default.min.css'
-import './assets/lib/owlcarousel/assets/owl.theme.green.css'
-import './assets/lib/owlcarousel/assets/owl.theme.green.min.css' */
+import {LoginForm} from './components/signin'
+import {SignUpForm} from './components/signup'
+
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
+          <Route path="/signin" element={<LoginForm/>}/>
+          <Route path="/signup" element={<SignUpForm/>}/>
           <Route index element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/service" element={<ServicePage />} />

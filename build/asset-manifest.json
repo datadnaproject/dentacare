@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/static/css/main.00b79648.css",
+    "main.js": "/static/js/main.60cabd34.js",
+    "static/media/carousel-1.jpg": "/static/media/carousel-1.5c4ea5238b899477389c.jpg",
+    "static/media/carousel-2.jpg": "/static/media/carousel-2.acebe087a2d955b2834a.jpg",
+    "static/media/about.jpg": "/static/media/about.1cb6c378cceae1b5fa52.jpg",
+    "static/media/after.jpg": "/static/media/after.60ffc131405eacd844d8.jpg",
+    "static/media/before.jpg": "/static/media/before.1a66d7d2b21c525de7ad.jpg",
+    "static/media/team-5.jpg": "/static/media/team-5.5abbe6f724e860148be5.jpg",
+    "static/media/service-3.jpg": "/static/media/service-3.71557f79bd655a7ae88e.jpg",
+    "static/media/team-3.jpg": "/static/media/team-3.40c8893394d4d8315589.jpg",
+    "static/media/team-4.jpg": "/static/media/team-4.b1d52a8207a38d358cad.jpg",
+    "static/media/team-1.jpg": "/static/media/team-1.b859e74e1bd992808819.jpg",
+    "static/media/service-2.jpg": "/static/media/service-2.571d0dca1cc48658351b.jpg",
+    "static/media/price-1.jpg": "/static/media/price-1.18e4d7680729e2d61736.jpg",
+    "static/media/team-2.jpg": "/static/media/team-2.957a6d2ace68c0c5b173.jpg",
+    "static/media/price-2.jpg": "/static/media/price-2.224424a4a8b8282eda8e.jpg",
+    "static/media/service-1.jpg": "/static/media/service-1.9a76d828f5897175fe49.jpg",
+    "static/media/price-3.jpg": "/static/media/price-3.793715dbe3b798aeac87.jpg",
+    "static/media/service-4.jpg": "/static/media/service-4.6e02c5b96d32637bb47b.jpg",
+    "index.html": "/index.html",
+    "main.00b79648.css.map": "/static/css/main.00b79648.css.map",
+    "main.60cabd34.js.map": "/static/js/main.60cabd34.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.00b79648.css",
+    "static/js/main.60cabd34.js"
+  ]
+}
