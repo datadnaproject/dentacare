@@ -1,36 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-
 import firebase from "firebase/compat/app";
 import "firebase/auth";
 import "firebase/compat/auth";
 import "firebase/compat/database";
 import "firebase/compat/firestore";
+
 export function Navbar() {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userName, setUserName] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if user is already logged in
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         setIsLoggedIn(true);
+        setUserName(user.displayName);
       } else {
         setIsLoggedIn(false);
+        setUserName("");
       }
     });
     return unsubscribe;
   }, []);
-
-  const handleMouseEnter = () => {
-    setDropdownOpen(true);
-  };
-
-  const handleMouseLeave = () => {
-    setDropdownOpen(false);
-  };
 
   const handleLogout = () => {
     firebase
@@ -39,7 +33,7 @@ export function Navbar() {
       .then(() => {
         setIsLoggedIn(false);
         // Redirect to home page or do any necessary clean up
-        window.location.href = "/";
+        navigate("/");
       })
       .catch((error) => {
         console.error("Sign out error:", error);
@@ -66,6 +60,7 @@ export function Navbar() {
         </button>
         <div className="collapse navbar-collapse" id="navbarCollapse">
           <div className="navbar-nav ms-auto py-0">
+            {/* Other NavLinks */}
             <NavLink to="/" className="nav-item nav-link">
               Home
             </NavLink>
@@ -110,68 +105,73 @@ export function Navbar() {
           >
             <i className="fa fa-search" />
           </button>
-
           <NavLink to="/appointment" className="btn btn-primary py-2 px-4 ms-3">
             Appointment
           </NavLink>
 
+          {/* Sign In Button */}
+          <NavLink
+            to="/signin"
+            className="btn btn-primary py-2 px-4 ms-3"
+            style={{ display: isLoggedIn ? "none" : "block" }}
+          >
+            Sign In
+          </NavLink>
           {/* User login */}
-          <div className="dropdown">
-            <button
-              className="btn btn-primary py-2 px-4 ms-3 dropdown-toggle"
-              type="button"
-              id="dropdownMenuButton"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <FontAwesomeIcon
-                icon={faUser}
-                aria-hidden="true"
-                style={{
-                  marginRight: "10px",
-                  cursor: "pointer",
-                  color: "white",
-                }}
-              />
-              {isLoggedIn ? "User Name" : "Login"}
-            </button>
-            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              {isLoggedIn ? (
-                <>
-                  <li>
-                    <NavLink to="/profile" className="dropdown-item">
-                      Profile
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="/seo-settings" className="dropdown-item">
-                      SEO Settings
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="/adminpage" className="dropdown-item">
-                      Admin Page
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/"
-                      className="dropdown-item"
-                      onClick={handleLogout}
-                    >
-                      Logout
-                    </NavLink>
-                  </li>
-                </>
-              ) : (
+          {isLoggedIn && (
+            <div className="dropdown">
+              {/* Dropdown Button */}
+              <button
+                className="btn btn-primary py-2 px-4 ms-3 dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <FontAwesomeIcon
+                  icon={faUser}
+                  aria-hidden="true"
+                  style={{
+                    marginRight: "10px",
+                    cursor: "pointer",
+                    color: "white",
+                  }}
+                />
+                {userName}
+                {/* Replace this with actual user name */}
+              </button>
+              {/* Dropdown Menu */}
+              <ul
+                className="dropdown-menu"
+                aria-labelledby="dropdownMenuButton"
+              >
                 <li>
-                  <NavLink to="/signin" className="dropdown-item">
-                    Sign In
+                  <NavLink to="/profile" className="dropdown-item">
+                    Profile
                   </NavLink>
                 </li>
-              )}
-            </ul>
-          </div>
+                <li>
+                  <NavLink to="/seo-settings" className="dropdown-item">
+                    SEO Settings
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/adminpage" className="dropdown-item">
+                    Admin Page
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/"
+                    className="dropdown-item"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </NavLink>
+                </li>
+              </ul>
+            </div>
+          )}
           {/* User login */}
         </div>
       </nav>

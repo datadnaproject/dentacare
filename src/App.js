@@ -15,18 +15,12 @@ import Profile from "./components/Profile";
 import SeoPage from "./components/SeoPage";
 import AdminPage from "./components/AdminPage";
 
-import "./App.css";
 import "./assets/css/bootstrap.min.css";
 import "./assets/css/style.css";
 import "./assets/lib/animate/animate.css";
 import "./assets/lib/animate/animate.min.css";
 import "./assets/js/main";
-/* import './assets/lib/owlcarousel/assets/owl.carousel.css'
-import './assets/lib/owlcarousel/assets/owl.carousel.min.css'
-import './assets/lib/owlcarousel/assets/owl.theme.default.css'
-import './assets/lib/owlcarousel/assets/owl.theme.default.min.css'
-import './assets/lib/owlcarousel/assets/owl.theme.green.css'
-import './assets/lib/owlcarousel/assets/owl.theme.green.min.css' */
+
 function App() {
   return (
     <>

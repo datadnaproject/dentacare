@@ -2,6 +2,10 @@ import priceimage1 from "../assets/img/price-1.jpg";
 import priceimage2 from "../assets/img/price-2.jpg";
 import priceimage3 from "../assets/img/price-3.jpg";
 
+import React from "react";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+
 export function Pricing() {
   return (
     <div className="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
@@ -33,65 +37,126 @@ export function Pricing() {
             </h1>
           </div>
           <div className="col-lg-7">
-            <div id="carouselExampleCaptions" className="carousel slide">
-              <div className="carousel-indicators">
-                <button
-                  type="button"
-                  data-bs-target="#carouselExampleCaptions"
-                  data-bs-slide-to={0}
-                  className="active"
-                  aria-current="true"
-                  aria-label="Slide 1"
-                />
-                <button
-                  type="button"
-                  data-bs-target="#carouselExampleCaptions"
-                  data-bs-slide-to={1}
-                  aria-label="Slide 2"
-                />
-                <button
-                  type="button"
-                  data-bs-target="#carouselExampleCaptions"
-                  data-bs-slide-to={2}
-                  aria-label="Slide 3"
-                />
+            <Carousel
+              showArrows={true}
+              infiniteLoop={true}
+              showThumbs={false}
+              showStatus={false}
+              autoPlay={false}
+              interval={5000}
+            >
+              <div className="price-item pb-3">
+                <div className="position-relative">
+                  <img
+                    className="img-fluid rounded-top"
+                    src={priceimage1}
+                    alt=""
+                  />
+                  <div
+                    className="d-flex align-items-center justify-content-center bg-light rounded pt-2 px-3 position-absolute top-100 start-50 translate-middle"
+                    style={{ zIndex: 2 }}
+                  >
+                    <h2 className="text-primary m-0">$35</h2>
+                  </div>
+                </div>
+                <div className="position-relative text-center bg-light border-bottom border-primary py-5 p-4">
+                  <h4>Teeth Whitening</h4>
+                  <hr className="text-primary w-50 mx-auto mt-0" />
+                  <div className="d-flex justify-content-between mb-3">
+                    <span>Modern Equipment</span>
+                    <i className="fa fa-check text-primary pt-1" />
+                  </div>
+                  <div className="d-flex justify-content-between mb-3">
+                    <span>Professional Dentist</span>
+                    <i className="fa fa-check text-primary pt-1" />
+                  </div>
+                  <div className="d-flex justify-content-between mb-2">
+                    <span>24/7 Call Support</span>
+                    <i className="fa fa-check text-primary pt-1" />
+                  </div>
+                  <a
+                    href="appointment.html"
+                    className="btn btn-primary py-2 px-14 position-absolute top-100 start-50 translate-middle"
+                  >
+                    Appointment
+                  </a>
+                </div>
               </div>
-              <div className="carousel-inner">
-                <div className="carousel-item active">
-                  <img src={priceimage1} className="d-block w-100" alt="..." />
+              <div className="price-item pb-4">
+                <div className="position-relative">
+                  <img
+                    className="img-fluid rounded-top"
+                    src={priceimage2}
+                    alt=""
+                  />
+                  <div
+                    className="d-flex align-items-center justify-content-center bg-light rounded pt-2 px-3 position-absolute top-100 start-50 translate-middle"
+                    style={{ zIndex: 2 }}
+                  >
+                    <h2 className="text-primary m-0">$49</h2>
+                  </div>
                 </div>
-                <div className="carousel-item">
-                  <img src={priceimage2} className="d-block w-100" alt="..." />
-                </div>
-                <div className="carousel-item">
-                  <img src={priceimage3} className="d-block w-100" alt="..." />
+                <div className="position-relative text-center bg-light border-bottom border-primary py-5 p-4">
+                  <h4>Dental Implant</h4>
+                  <hr className="text-primary w-50 mx-auto mt-0" />
+                  <div className="d-flex justify-content-between mb-3">
+                    <span>Modern Equipment</span>
+                    <i className="fa fa-check text-primary pt-1" />
+                  </div>
+                  <div className="d-flex justify-content-between mb-3">
+                    <span>Professional Dentist</span>
+                    <i className="fa fa-check text-primary pt-1" />
+                  </div>
+                  <div className="d-flex justify-content-between mb-2">
+                    <span>24/7 Call Support</span>
+                    <i className="fa fa-check text-primary pt-1" />
+                  </div>
+                  <a
+                    href="appointment.html"
+                    className="btn btn-primary py-2 px-4 position-absolute top-100 start-50 translate-middle"
+                  >
+                    Appointment
+                  </a>
                 </div>
               </div>
-              <button
-                className="carousel-control-prev"
-                type="button"
-                data-bs-target="#carouselExampleCaptions"
-                data-bs-slide="prev"
-              >
-                <span
-                  className="carousel-control-prev-icon"
-                  aria-hidden="true"
-                />
-                <span className="visually-hidden">Previous</span>
-              </button>
-              <button
-                className="carousel-control-next"
-                type="button"
-                data-bs-target="#carouselExampleCaptions"
-                data-bs-slide="next"
-              >
-                <span
-                  className="carousel-control-next-icon"
-                  aria-hidden="true"
-                />
-                <span className="visually-hidden">Next</span>
-              </button>
-            </div>
+              <div className="price-item pb-4">
+                <div className="position-relative">
+                  <img
+                    className="img-fluid rounded-top"
+                    src={priceimage3}
+                    alt=""
+                  />
+                  <div
+                    className="d-flex align-items-center justify-content-center bg-light rounded pt-2 px-3 position-absolute top-100 start-50 translate-middle"
+                    style={{ zIndex: 2 }}
+                  >
+                    <h2 className="text-primary m-0">$99</h2>
+                  </div>
+                </div>
+                <div className="position-relative text-center bg-light border-bottom border-primary py-5 p-4">
+                  <h4>Root Canal</h4>
+                  <hr className="text-primary w-50 mx-auto mt-0" />
+                  <div className="d-flex justify-content-between mb-3">
+                    <span>Modern Equipment</span>
+                    <i className="fa fa-check text-primary pt-1" />
+                  </div>
+                  <div className="d-flex justify-content-between mb-3">
+                    <span>Professional Dentist</span>
+                    <i className="fa fa-check text-primary pt-1" />
+                  </div>
+                  <div className="d-flex justify-content-between mb-2">
+                    <span>24/7 Call Support</span>
+                    <i className="fa fa-check text-primary pt-1" />
+                  </div>
+                  <a
+                    href="appointment.html"
+                    className="btn btn-primary py-2 px-4 position-absolute top-100 start-50 translate-middle"
+                  >
+                    Appointment
+                  </a>
+                </div>
+              </div>
+            </Carousel>
           </div>
         </div>
       </div>
