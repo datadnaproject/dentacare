@@ -1,11 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
+import firebase from "firebase/compat/app";
+import "firebase/auth";
+import "firebase/compat/auth";
+import "firebase/compat/database";
+import "firebase/compat/firestore";
 export function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Check if user is already logged in
+    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    });
+    return unsubscribe;
+  }, []);
 
   const handleMouseEnter = () => {
     setDropdownOpen(true);
@@ -16,9 +33,17 @@ export function Navbar() {
   };
 
   const handleLogout = () => {
-    // Logic for handling logout
-    setIsLoggedIn(false);
-    // Additional logic for logout if needed
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        setIsLoggedIn(false);
+        // Redirect to home page or do any necessary clean up
+        window.location.href = "/";
+      })
+      .catch((error) => {
+        console.error("Sign out error:", error);
+      });
   };
 
   return (
@@ -85,105 +110,67 @@ export function Navbar() {
           >
             <i className="fa fa-search" />
           </button>
+
           <NavLink to="/appointment" className="btn btn-primary py-2 px-4 ms-3">
             Appointment
           </NavLink>
 
           {/* User login */}
-          <div
-            className="dropdown"
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-            <FontAwesomeIcon
-              icon={faUser}
-              aria-hidden="true"
-              style={{
-                marginRight: "50px",
-                cursor: "pointer",
-                marginTop: "15px",
-                marginLeft: "15px",
-                color: "white",
-              }}
-            />
-            <div
-              className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}
-              style={{
-                backgroundColor: "white",
-                border: "1px solid black",
-                width: "10px",
-                maxHeight: "200px",
-                overflowY: "auto",
-              }}
+          <div className="dropdown">
+            <button
+              className="btn btn-primary py-2 px-4 ms-3 dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
             >
+              <FontAwesomeIcon
+                icon={faUser}
+                aria-hidden="true"
+                style={{
+                  marginRight: "10px",
+                  cursor: "pointer",
+                  color: "white",
+                }}
+              />
+              {isLoggedIn ? "User Name" : "Login"}
+            </button>
+            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
               {isLoggedIn ? (
                 <>
-                  <NavLink
-                    to="/profile"
-                    className="dropdown-item"
-                    style={{
-                      textTransform: "uppercase",
-                      fontSize: "12px",
-                      color: "black",
-                      backgroundColor: "transparent",
-                    }}
-                    hover={{ backgroundColor: "#007bff" }}
-                  >
-                    Profile
-                  </NavLink>
-                  <NavLink
-                    to="/seo-settings"
-                    className="dropdown-item"
-                    style={{
-                      textTransform: "uppercase",
-                      fontSize: "12px",
-                      color: "black",
-                      backgroundColor: "transparent",
-                    }}
-                  >
-                    SEO Settings
-                  </NavLink>
-                  <NavLink
-                    to="/adminpage"
-                    className="dropdown-item"
-                    style={{
-                      textTransform: "uppercase",
-                      fontSize: "12px",
-                      color: "black",
-                      backgroundColor: "transparent",
-                    }}
-                  >
-                    Admin Page
-                  </NavLink>
-                  <NavLink
-                    to="/"
-                    className="dropdown-item"
-                    onClick={handleLogout}
-                    style={{
-                      textTransform: "uppercase",
-                      fontSize: "12px",
-                      color: "black",
-                      backgroundColor: "transparent",
-                    }}
-                  >
-                    Logout
-                  </NavLink>
+                  <li>
+                    <NavLink to="/profile" className="dropdown-item">
+                      Profile
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/seo-settings" className="dropdown-item">
+                      SEO Settings
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/adminpage" className="dropdown-item">
+                      Admin Page
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/"
+                      className="dropdown-item"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </NavLink>
+                  </li>
                 </>
               ) : (
-                <NavLink
-                  to="/signin"
-                  className="dropdown-item"
-                  style={{
-                    textTransform: "uppercase",
-                    fontSize: "12px",
-                    color: "black",
-                    backgroundColor: "transparent",
-                  }}
-                >
-                  Login
-                </NavLink>
+                <li>
+                  <NavLink to="/signin" className="dropdown-item">
+                    Sign In
+                  </NavLink>
+                </li>
               )}
-            </div>
+            </ul>
           </div>
           {/* User login */}
         </div>

@@ -11,7 +11,9 @@ import { AppointmentPage } from "./components/AppointmentPage";
 
 import LoginForm from "./components/signin";
 import SignUpForm from "./components/signup";
-import Profile from "./components/profile";
+import Profile from "./components/Profile";
+import SeoPage from "./components/SeoPage";
+import AdminPage from "./components/AdminPage";
 
 import "./App.css";
 import "./assets/css/bootstrap.min.css";
@@ -41,6 +43,8 @@ function App() {
           <Route path="/signin" element={<LoginForm />} />
           <Route path="/signup" element={<SignUpForm />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/seo-settings" element={<SeoPage />} />
+          <Route path="/adminPage" element={<AdminPage />} />
           <Route path="*" element={<HomePage />} />
         </Routes>
       </BrowserRouter>
