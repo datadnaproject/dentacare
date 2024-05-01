@@ -8,14 +8,14 @@ import { OAuthProvider } from "firebase/auth";
 import "firebase/compat/database";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyArpMOM_AFemLCsiPgm0wGZ5354-susqN8",
-  authDomain: "paying-guest-9c5f5.firebaseapp.com",
-  databaseURL: "https://paying-guest-9c5f5-default-rtdb.firebaseio.com",
-  projectId: "paying-guest-9c5f5",
-  storageBucket: "paying-guest-9c5f5.appspot.com",
-  messagingSenderId: "903624680545",
-  appId: "1:903624680545:web:632dca08a511f1d9233620",
-  measurementId: "G-L63G32WWQN",
+  apiKey: "AIzaSyDIznfPzuFEVkfPyv9pRLw05R_jzeCKWAc",
+  authDomain: "dentacareintern.firebaseapp.com",
+  databaseURL: "https://dentacareintern-default-rtdb.firebaseio.com",
+  projectId: "dentacareintern",
+  storageBucket: "dentacareintern.appspot.com",
+  messagingSenderId: "645539100033",
+  appId: "1:645539100033:web:2fc255f446206baca06480",
+  measurementId: "G-9D593EQ9NE",
 };
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);

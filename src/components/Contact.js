@@ -1,4 +1,72 @@
+import React, { useState, useEffect } from "react";
+import firebase from "firebase/compat/app";
+import "firebase/compat/database";
+import "firebase/compat/storage";
+
 export function Contact() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [latestId, setLatestId] = useState(0);
+
+  useEffect(() => {
+    const fetchLatestId = async () => {
+      try {
+        const snapshot = await firebase
+          .database()
+          .ref("Contact Form")
+          .orderByChild("Contact_id")
+          .limitToLast(1)
+          .once("value");
+        if (snapshot.exists()) {
+          const latestEntry = snapshot.val();
+          const latestIdValue = Object.values(latestEntry)[0].Contact_id;
+          setLatestId(latestIdValue);
+        } else {
+          setLatestId(0);
+        }
+      } catch (error) {
+        console.error("Error fetching latest ID:", error);
+      }
+    };
+
+    fetchLatestId();
+  }, []);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const db = firebase.database();
+
+    try {
+      console.log("Latest ID:", latestId);
+      const newId = latestId + 1;
+      console.log("New ID:", newId);
+      // Push form data to the database
+      await db.ref("Contact Form").push({
+        Contact_id: newId,
+        Contact_name: name,
+        Contact_email: email,
+        Contact_subject: subject,
+        Contact_message: message,
+      });
+
+      // Clear form fields and set success message
+      setName("");
+      setEmail("");
+      setSubject("");
+      setMessage("");
+      setSuccessMessage("Message sent successfully!");
+      setErrorMessage("");
+    } catch (error) {
+      console.error("Error storing form data:", error);
+      setSuccessMessage("");
+      setErrorMessage("Failed to send message. Please try again.");
+    }
+  };
   return (
     <>
       {/* Contact Start */}
