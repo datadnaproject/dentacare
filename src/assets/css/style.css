@@ -6,6 +6,12 @@
   --dark: #091e3e;
 }
 
+.form-group1 > label {
+  margin-bottom: 0.2rem;
+}
+.radio-container input {
+  margin-right: 0.5rem;
+}
 h1,
 h2,
 .font-weight-bold {

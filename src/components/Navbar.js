@@ -3,7 +3,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import firebase from "firebase/compat/app";
-import "firebase/auth";
 import "firebase/compat/auth";
 import "firebase/compat/database";
 import "firebase/compat/firestore";

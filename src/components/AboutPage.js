@@ -6,7 +6,6 @@ import { About } from "./About";
 import { Newsletter } from "./Newsletter";
 import { Footer } from "./Footer";
 import { BackToTop } from "./BackToTop";
-import { Carousel } from "./Carousel";
 export function AboutPage() {
   return (
     <>
