@@ -7,15 +7,16 @@ import "./signin.css";
 import { OAuthProvider } from "firebase/auth";
 import "firebase/compat/database";
 
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyDIznfPzuFEVkfPyv9pRLw05R_jzeCKWAc",
-  authDomain: "dentacareintern.firebaseapp.com",
-  databaseURL: "https://dentacareintern-default-rtdb.firebaseio.com",
-  projectId: "dentacareintern",
-  storageBucket: "dentacareintern.appspot.com",
-  messagingSenderId: "645539100033",
-  appId: "1:645539100033:web:2fc255f446206baca06480",
-  measurementId: "G-9D593EQ9NE",
+  apiKey: "AIzaSyAu5ToZ5th3LyI1j9dv5zzjM0BfNVtasGE",
+  authDomain: "dentacare2-3c703.firebaseapp.com",
+  databaseURL: "https://dentacare2-3c703-default-rtdb.firebaseio.com",
+  projectId: "dentacare2-3c703",
+  storageBucket: "dentacare2-3c703.appspot.com",
+  messagingSenderId: "204257933428",
+  appId: "1:204257933428:web:a284d8cc92431997a27921",
+  measurementId: "G-KLBRGYD3DN",
 };
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
