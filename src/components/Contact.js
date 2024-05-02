@@ -111,7 +111,7 @@ export function Contact() {
               className="col-xl-4 col-lg-6 wow slideInUp"
               data-wow-delay="0.3s"
             >
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div className="row g-3">
                   <div className="col-12">
                     <input
@@ -119,6 +119,8 @@ export function Contact() {
                       className="form-control border-0 bg-light px-4"
                       placeholder="Your Name"
                       style={{ height: 55 }}
+                      value={name}
+                      onChange={(event) => setName(event.target.value)}
                     />
                   </div>
                   <div className="col-12">
@@ -127,6 +129,8 @@ export function Contact() {
                       className="form-control border-0 bg-light px-4"
                       placeholder="Your Email"
                       style={{ height: 55 }}
+                      value={email}
+                      onChange={(event) => setEmail(event.target.value)}
                     />
                   </div>
                   <div className="col-12">
@@ -135,6 +139,8 @@ export function Contact() {
                       className="form-control border-0 bg-light px-4"
                       placeholder="Subject"
                       style={{ height: 55 }}
+                      value={subject}
+                      onChange={(event) => setSubject(event.target.value)}
                     />
                   </div>
                   <div className="col-12">
@@ -142,7 +148,8 @@ export function Contact() {
                       className="form-control border-0 bg-light px-4 py-3"
                       rows={5}
                       placeholder="Message"
-                      defaultValue={""}
+                      value={message}
+                      onChange={(event) => setMessage(event.target.value)}
                     />
                   </div>
                   <div className="col-12">
@@ -153,6 +160,12 @@ export function Contact() {
                       Send Message
                     </button>
                   </div>
+                  {successMessage && (
+                    <div className="alert alert-success">{successMessage}</div>
+                  )}
+                  {errorMessage && (
+                    <div className="alert alert-danger">{errorMessage}</div>
+                  )}
                 </div>
               </form>
             </div>
@@ -167,6 +180,7 @@ export function Contact() {
                 style={{ minHeight: 400, border: 0 }}
                 aria-hidden="false"
                 tabIndex={0}
+                title="Google Maps"
               />
             </div>
           </div>

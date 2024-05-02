@@ -36,14 +36,15 @@ export function Pricing() {
               +012 345 6789
             </h1>
           </div>
+
           <div className="col-lg-7">
             <Carousel
               showArrows={true}
               infiniteLoop={true}
               showThumbs={false}
               showStatus={false}
-              autoPlay={false}
-              interval={5000}
+              autoPlay={true}
+              interval={4000}
             >
               <div className="price-item pb-3">
                 <div className="position-relative">
