@@ -6,6 +6,7 @@ import { About } from "./About";
 import { Newsletter } from "./Newsletter";
 import { Footer } from "./Footer";
 import { BackToTop } from "./BackToTop";
+
 export function AboutPage() {
   return (
     <>
