@@ -1,5 +1,45 @@
-import aboutimage from '../assets/img/about.jpg'
+import aboutImg from "../assets/img/about.jpg";
+
+import React, { useState, useEffect } from "react";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/database";
+import "firebase/compat/firestore";
+
 export function About() {
+  const [aboutContent, setAboutContent] = useState({
+    title: "",
+    description: "",
+    highlights: "",
+  });
+
+  useEffect(() => {
+    const fetchAboutContent = async () => {
+      try {
+        const snapshot = await firebase
+          .database()
+          .ref("About_Section")
+          .once("value");
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          const { About_Title, About_Description, About_Highlights } = data;
+
+          setAboutContent({
+            title: About_Title || "",
+            description: About_Description || "",
+            highlights: About_Highlights || "",
+          });
+        } else {
+          console.error("About section content not found in database");
+        }
+      } catch (error) {
+        console.error("Error fetching about section content:", error);
+      }
+    };
+
+    fetchAboutContent();
+  }, []);
+
   return (
     <>
       {/* About Start */}
@@ -11,39 +51,31 @@ export function About() {
                 <h5 className="position-relative d-inline-block text-primary text-uppercase">
                   About Us
                 </h5>
-                <h1 className="display-5 mb-0">
-                  The World's Best Dental Clinic That You Can Trust
-                </h1>
+                <h1 className="display-5 mb-0">{aboutContent.title}</h1>
               </div>
               <h4 className="text-body fst-italic mb-4">
-                Diam dolor diam ipsum sit. Clita erat ipsum et lorem stet no
-                lorem sit clita duo justo magna dolore
+                {aboutContent.description.Description_1}
               </h4>
-              <p className="mb-4">
-                Tempor erat elitr rebum at clita. Diam dolor diam ipsum et
-                tempor sit. Aliqu diam amet diam et eos labore. Clita erat ipsum
-                et lorem et sit, sed stet no labore lorem sit. Sanctus clita duo
-                justo et tempor eirmod magna dolore erat amet
-              </p>
+              <p className="mb-4">{aboutContent.description.Description_2}</p>
               <div className="row g-3">
                 <div className="col-sm-6 wow zoomIn" data-wow-delay="0.3s">
                   <h5 className="mb-3">
                     <i className="fa fa-check-circle text-primary me-3" />
-                    Award Winning
+                    {aboutContent.highlights.Highlights_1}
                   </h5>
                   <h5 className="mb-3">
                     <i className="fa fa-check-circle text-primary me-3" />
-                    Professional Staff
+                    {aboutContent.highlights.Highlights_2}
                   </h5>
                 </div>
                 <div className="col-sm-6 wow zoomIn" data-wow-delay="0.6s">
                   <h5 className="mb-3">
                     <i className="fa fa-check-circle text-primary me-3" />
-                    24/7 Opened
+                    {aboutContent.highlights.Highlights_3}
                   </h5>
                   <h5 className="mb-3">
                     <i className="fa fa-check-circle text-primary me-3" />
-                    Fair Prices
+                    {aboutContent.highlights.Highlights_4}
                   </h5>
                 </div>
               </div>
@@ -60,7 +92,7 @@ export function About() {
                 <img
                   className="position-absolute w-100 h-100 rounded wow zoomIn"
                   data-wow-delay="0.9s"
-                  src={aboutimage}
+                  src={aboutImg}
                   style={{ objectFit: "cover" }}
                 />
               </div>

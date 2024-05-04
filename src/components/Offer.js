@@ -1,6 +1,41 @@
 import { NavLink } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/database";
+import "firebase/compat/firestore";
 
 export function Offer() {
+  const [offerContent, setOfferContent] = useState({
+    title: "",
+    description: "",
+  });
+
+  useEffect(() => {
+    const fetchOfferContent = async () => {
+      try {
+        const snapshot = await firebase
+          .database()
+          .ref("Offer")
+          .once("value");
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          const { Offer_Title, Offer_Description} = data;
+
+          setOfferContent({
+            title: Offer_Title || "",
+            description: Offer_Description || "",
+          });
+        } else {
+          console.error("Offer section content not found in database");
+        }
+      } catch (error) {
+        console.error("Error fetching offer section content:", error);
+      }
+    };
+
+    fetchOfferContent();
+  }, []);
   return (
     <>
       {/* Offer Start */}
@@ -13,13 +48,10 @@ export function Offer() {
             <div className="col-lg-7 wow zoomIn" data-wow-delay="0.6s">
               <div className="offer-text text-center rounded p-5">
                 <h1 className="display-5 text-white">
-                  Save 30% On Your First Dental Checkup
+                  {offerContent.title}
                 </h1>
                 <p className="text-white mb-4">
-                  Eirmod sed tempor lorem ut dolores sit kasd ipsum. Dolor ea et
-                  dolore et at sea ea at dolor justo ipsum duo rebum sea. Eos
-                  vero eos vero ea et dolore eirmod diam duo lorem magna sit
-                  dolore sed et.
+                  {offerContent.description}
                 </p>
                 <NavLink
                   to="/appointment"

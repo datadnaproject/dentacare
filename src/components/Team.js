@@ -1,13 +1,41 @@
-import React from "react";
 import { NavLink } from "react-router-dom";
+import teamImg1 from "../assets/img/team-1.jpg";
 
-import team1 from "../assets/img/team-1.jpg";
-import team2 from "../assets/img/team-2.jpg";
-import team3 from "../assets/img/team-3.jpg";
-import team4 from "../assets/img/team-4.jpg";
-import team5 from "../assets/img/team-5.jpg";
-
+import React, { useState, useEffect } from "react";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/database";
+import "firebase/compat/firestore";
 export function Team() {
+  const [teamContent, setTeamContent] = useState({
+    title: "",
+    teamMembers: [],
+  });
+
+  useEffect(() => {
+    const fetchTeamContent = async () => {
+      try {
+        const snapshot = await firebase
+          .database()
+          .ref("Team_Section")
+          .once("value");
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          const { Team_Title, Team_Members } = data;
+          setTeamContent({
+            title: Team_Title || "",
+            teamMembers: Team_Members || [],
+          });
+        } else {
+          console.error("Team section content not found in database");
+        }
+      } catch (error) {
+        console.error("Error fetching team section content:", error);
+      }
+    };
+
+    fetchTeamContent();
+  }, []);
   return (
     <>
       {/* Team Start */}
@@ -30,39 +58,59 @@ export function Team() {
                 </NavLink>
               </div>
             </div>
-            <div className="col-lg-4 wow slideInUp" data-wow-delay="0.3s">
-              <div className="team-item">
-                <div
-                  className="position-relative rounded-top"
-                  style={{ zIndex: 1 }}
-                >
-                  <img
-                    className="img-fluid rounded-top w-100"
-                    src={team1}
-                    alt=""
-                  />
-                  <div className="position-absolute top-100 start-50 translate-middle bg-light rounded p-2 d-flex">
-                    <NavLink className="btn btn-primary btn-square m-1" to="#">
-                      <i className="fab fa-twitter fw-normal" />
-                    </NavLink>
-                    <NavLink className="btn btn-primary btn-square m-1" to="#">
-                      <i className="fab fa-facebook-f fw-normal" />
-                    </NavLink>
-                    <NavLink className="btn btn-primary btn-square m-1" to="#">
-                      <i className="fab fa-linkedin-in fw-normal" />
-                    </NavLink>
-                    <NavLink className="btn btn-primary btn-square m-1" to="#">
-                      <i className="fab fa-instagram fw-normal" />
-                    </NavLink>
+            {teamContent.teamMembers.map((member, index) => (
+              <div
+                key={index}
+                className="col-lg-4 wow slideInUp"
+                data-wow-delay="0.3s"
+              >
+                <div className="team-item">
+                  <div
+                    className="position-relative rounded-top"
+                    style={{ zIndex: 1 }}
+                  >
+                    <img
+                      className="img-fluid rounded-top w-100"
+                      src={teamImg1}
+                      alt=""
+                    />
+                    <div className="position-absolute top-100 start-50 translate-middle bg-light rounded p-2 d-flex">
+                      <NavLink
+                        className="btn btn-primary btn-square m-1"
+                        to="#"
+                      >
+                        <i className="fab fa-twitter fw-normal" />
+                      </NavLink>
+                      <NavLink
+                        className="btn btn-primary btn-square m-1"
+                        to="#"
+                      >
+                        <i className="fab fa-facebook-f fw-normal" />
+                      </NavLink>
+                      <NavLink
+                        className="btn btn-primary btn-square m-1"
+                        to="#"
+                      >
+                        <i className="fab fa-linkedin-in fw-normal" />
+                      </NavLink>
+                      <NavLink
+                        className="btn btn-primary btn-square m-1"
+                        to="#"
+                      >
+                        <i className="fab fa-instagram fw-normal" />
+                      </NavLink>
+                    </div>
+                  </div>
+                  <div className="team-text position-relative bg-light text-center rounded-bottom p-4 pt-5">
+                    <h4 className="mb-2">{member.Member_Name}</h4>
+                    <p className="text-primary mb-0">
+                      {member.Member_Specialization}
+                    </p>
                   </div>
                 </div>
-                <div className="team-text position-relative bg-light text-center rounded-bottom p-4 pt-5">
-                  <h4 className="mb-2">Dr. John Doe</h4>
-                  <p className="text-primary mb-0">Implant Surgeon</p>
-                </div>
               </div>
-            </div>
-            <div className="col-lg-4 wow slideInUp" data-wow-delay="0.6s">
+            ))}
+            {/* <div className="col-lg-4 wow slideInUp" data-wow-delay="0.6s">
               <div className="team-item">
                 <div
                   className="position-relative rounded-top"
@@ -189,7 +237,7 @@ export function Team() {
                   <p className="text-primary mb-0">Implant Surgeon</p>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

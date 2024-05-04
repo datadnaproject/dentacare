@@ -1,6 +1,6 @@
 import { Navbar } from "./Navbar";
 import { Topbar } from "./Topbar";
-import { Carousel } from "./Carousel";
+import { Hero } from "./Hero";
 import { Banner } from "./Banner";
 import { FullSearch } from "./FullSearch";
 import { About } from "./About";
@@ -20,7 +20,7 @@ export function HomePage() {
       <Topbar />
       <Navbar />
       <FullSearch />
-      <Carousel />
+      <Hero />
       <Banner />
       <About />
       <Appointment />
