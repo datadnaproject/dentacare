@@ -10,9 +10,7 @@ export function Footer() {
   const [footerContent, setFooterContent] = useState({
     siteName: "",
     description: "",
-    footer1: "",
-    footer2: "",
-    footer3: "",
+    footers: "",
   });
 
   useEffect(() => {
@@ -26,13 +24,10 @@ export function Footer() {
           const data = snapshot.val();
           const { Copyright_Content, Footer_Content } = data;
 
-          console.log(Footer_Content);
           setFooterContent({
             siteName: Copyright_Content.Site_Name || "",
             description: Copyright_Content.Description || "",
-            footer1: Footer_Content.Footer_1 || "",
-            footer2: Footer_Content.Footer_2 || "",
-            footer3: Footer_Content.Footer_3 || "",
+            footers: Footer_Content || "",
           });
         } else {
           console.error("Footer section content not found in database");
@@ -55,14 +50,18 @@ export function Footer() {
         <div className="container pt-5">
           <div className="row g-5 pt-4">
             <div className="col-lg-3 col-md-6">
-              <h3 className="text-white mb-4">{footerContent.footer1.Title}</h3>
+              <h3 className="text-white mb-4">
+                {footerContent.footers.Footer_1?.Title}
+              </h3>
               <div className="d-flex flex-column justify-content-start">
-                {footerContent.footer1.Footer_Links.map((link, index) => (
-                  <NavLink key={index} className="text-light mb-2" href="#">
-                    <i className="bi bi-arrow-right text-primary me-2" />
-                    Home {link.Link}
-                  </NavLink>
-                ))}
+                {footerContent.footers.Footer_1?.Footer_Links.map(
+                  (link, index) => (
+                    <NavLink key={index} className="text-light mb-2" href="#">
+                      <i className="bi bi-arrow-right text-primary me-2" />{" "}
+                      {link.Link}
+                    </NavLink>
+                  )
+                )}
                 {/* <NavLink className="text-light mb-2" href="#">
                   <i className="bi bi-arrow-right text-primary me-2" />
                   About Us
@@ -82,13 +81,19 @@ export function Footer() {
               </div>
             </div>
             <div className="col-lg-3 col-md-6">
-              <h3 className="text-white mb-4">{footerContent.footer2.Title}</h3>
+              <h3 className="text-white mb-4">
+                {footerContent.footers.Footer_2?.Title}
+              </h3>
               <div className="d-flex flex-column justify-content-start">
-                <NavLink className="text-light mb-2" href="#">
-                  <i className="bi bi-arrow-right text-primary me-2" />
-                  Home
-                </NavLink>
-                <NavLink className="text-light mb-2" href="#">
+                {footerContent.footers.Footer_1?.Footer_Links.map(
+                  (link, index) => (
+                    <NavLink key={index} className="text-light mb-2" href="#">
+                      <i className="bi bi-arrow-right text-primary me-2" />
+                      {link.Link}
+                    </NavLink>
+                  )
+                )}
+                {/* <NavLink className="text-light mb-2" href="#">
                   <i className="bi bi-arrow-right text-primary me-2" />
                   About Us
                 </NavLink>
@@ -103,22 +108,24 @@ export function Footer() {
                 <NavLink className="text-light" href="#">
                   <i className="bi bi-arrow-right text-primary me-2" />
                   Contact Us
-                </NavLink>
+                </NavLink> */}
               </div>
             </div>
             <div className="col-lg-3 col-md-6">
-              <h3 className="text-white mb-4">{footerContent.footer3.Title}</h3>
+              <h3 className="text-white mb-4">
+                {footerContent.footers.Footer_3?.Title}
+              </h3>
               <p className="mb-2">
                 <i className="bi bi-geo-alt text-primary me-2" />
-                123 Street, New York, USA
+                {footerContent.footers.Footer_3?.Contact_Details.Location}
               </p>
               <p className="mb-2">
                 <i className="bi bi-envelope-open text-primary me-2" />
-                info@example.com
+                {footerContent.footers.Footer_3?.Contact_Details.Email}
               </p>
               <p className="mb-0">
                 <i className="bi bi-telephone text-primary me-2" />
-                +012 345 67890
+                {footerContent.footers.Footer_3?.Contact_Details.Contact_Number}
               </p>
             </div>
             <div className="col-lg-3 col-md-6">

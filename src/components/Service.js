@@ -1,9 +1,6 @@
 import beforeimage from "../assets/img/before.jpg";
 import afterimage from "../assets/img/after.jpg";
-import serviveimage1 from "../assets/img/service-1.jpg";
-import serviveimage2 from "../assets/img/service-2.jpg";
-import serviveimage3 from "../assets/img/service-3.jpg";
-import serviveimage4 from "../assets/img/service-4.jpg";
+import serviceImg1 from "../assets/img/service-1.jpg";
 
 import React, { useState, useEffect } from "react";
 import firebase from "firebase/compat/app";
@@ -27,16 +24,13 @@ export function Service() {
           .once("value");
         if (snapshot.exists()) {
           const data = snapshot.val();
-          const serviceList = Object.values(data).filter(
-            (item) => typeof item === "object"
-          );
-          const { Service_Title, Service_Appointment } = data;
+          const { Service_Title, Service_Appointment, Service_List } = data;
 
           setServiceContent({
             title: Service_Title || "",
             appointment: Service_Appointment || "",
-            serviceList: serviceList.map((service) => ({
-              title: service.Service_Title || "",
+            serviceList: Service_List.map((service) => ({
+              title: service.Service_Title || [],
             })),
           });
         } else {
@@ -80,18 +74,23 @@ export function Service() {
                 <h1 className="display-5 mb-0">{serviceContent.title}</h1>
               </div>
               <div className="row g-5">
-                <div
-                  className="col-md-6 service-item wow zoomIn"
-                  data-wow-delay="0.6s"
-                >
-                  <div className="rounded-top overflow-hidden">
-                    <img className="img-fluid" src={serviveimage1} alt="" />
-                  </div>
-                  <div className="position-relative bg-light rounded-bottom text-center p-4">
-                    <h5 className="m-0">Cosmetic Dentistry</h5>
-                  </div>
-                </div>
-                <div
+                {serviceContent.serviceList
+                  .slice(0, 3)
+                  .map((service, index) => (
+                    <div
+                      key={index}
+                      className="col-md-6 service-item wow zoomIn"
+                      data-wow-delay="0.6s"
+                    >
+                      <div className="rounded-top overflow-hidden">
+                        <img className="img-fluid" src={serviceImg1} alt="" />
+                      </div>
+                      <div className="position-relative bg-light rounded-bottom text-center p-4">
+                        <h5 className="m-0">{service.title}</h5>
+                      </div>
+                    </div>
+                  ))}
+                {/* <div
                   className="col-md-6 service-item wow zoomIn"
                   data-wow-delay="0.9s"
                 >
@@ -101,25 +100,28 @@ export function Service() {
                   <div className="position-relative bg-light rounded-bottom text-center p-4">
                     <h5 className="m-0">Dental Implants</h5>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
           <div className="row g-5 wow fadeInUp" data-wow-delay="0.1s">
             <div className="col-lg-7">
               <div className="row g-5">
-                <div
-                  className="col-md-6 service-item wow zoomIn"
-                  data-wow-delay="0.3s"
-                >
-                  <div className="rounded-top overflow-hidden">
-                    <img className="img-fluid" src={serviveimage3} alt="" />
+                {serviceContent.serviceList.slice(3).map((service, index) => (
+                  <div
+                    key={index}
+                    className="col-md-6 service-item wow zoomIn"
+                    data-wow-delay="0.3s"
+                  >
+                    <div className="rounded-top overflow-hidden">
+                      <img className="img-fluid" src={serviceImg1} alt="" />
+                    </div>
+                    <div className="position-relative bg-light rounded-bottom text-center p-4">
+                      <h5 className="m-0">{service.title}</h5>
+                    </div>
                   </div>
-                  <div className="position-relative bg-light rounded-bottom text-center p-4">
-                    <h5 className="m-0">Dental Bridges</h5>
-                  </div>
-                </div>
-                <div
+                ))}
+                {/* <div
                   className="col-md-6 service-item wow zoomIn"
                   data-wow-delay="0.6s"
                 >
@@ -129,7 +131,7 @@ export function Service() {
                   <div className="position-relative bg-light rounded-bottom text-center p-4">
                     <h5 className="m-0">Teeth Whitening</h5>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
             <div
