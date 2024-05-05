@@ -1,4 +1,39 @@
+import React, { useState, useEffect } from "react";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/database";
+import "firebase/compat/firestore";
+
 export function Banner() {
+  const [bannerContent, setBannerContent] = useState({
+    banner_1: "",
+    banner_2: "",
+    banner_3: "",
+  });
+
+  useEffect(() => {
+    const fetchBannerContent = async () => {
+      try {
+        const snapshot = await firebase.database().ref("Banner").once("value");
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          const { Banner_1, Banner_2, Banner_3 } = data;
+
+          setBannerContent({
+            banner_1: Banner_1 || "",
+            banner_2: Banner_2 || "",
+            banner_3: Banner_3 || "",
+          });
+        } else {
+          console.error("Banner content not found in database");
+        }
+      } catch (error) {
+        console.error("Error fetching banner content:", error);
+      }
+    };
+
+    fetchBannerContent();
+  }, []);
   return (
     <>
       {/* Banner Start */}
@@ -10,19 +45,26 @@ export function Banner() {
                 className="bg-primary d-flex flex-column p-5"
                 style={{ height: 300 }}
               >
-                <h3 className="text-white mb-3">Opening Hours</h3>
-                <div className="d-flex justify-content-between text-white mb-3">
-                  <h6 className="text-white mb-0">Mon - Fri</h6>
-                  <p className="mb-0"> 8:00am - 9:00pm</p>
-                </div>
-                <div className="d-flex justify-content-between text-white mb-3">
+                <h3 className="text-white mb-3">
+                  {bannerContent.banner_1.Title}
+                </h3>
+                {bannerContent.banner_1.Working_Time?.map((time, index) => (
+                  <div
+                    key={index}
+                    className="d-flex justify-content-between text-white mb-3"
+                  >
+                    <h6 className="text-white mb-0">{time.Day}</h6>
+                    <p className="mb-0">{time.Time}</p>
+                  </div>
+                ))}
+                {/* <div className="d-flex justify-content-between text-white mb-3">
                   <h6 className="text-white mb-0">Saturday</h6>
                   <p className="mb-0"> 8:00am - 7:00pm</p>
                 </div>
                 <div className="d-flex justify-content-between text-white mb-3">
                   <h6 className="text-white mb-0">Sunday</h6>
                   <p className="mb-0"> 8:00am - 5:00pm</p>
-                </div>
+                </div> */}
                 <a className="btn btn-light" to="/appointment">
                   Appointment
                 </a>
@@ -33,7 +75,10 @@ export function Banner() {
                 className="bg-dark d-flex flex-column p-5"
                 style={{ height: 300 }}
               >
-                <h3 className="text-white mb-3">Search A Doctor</h3>
+                <h3 className="text-white mb-3">
+                  {" "}
+                  {bannerContent.banner_2.Title}
+                </h3>
                 <div
                   className="date mb-3"
                   id="date"
@@ -67,12 +112,15 @@ export function Banner() {
                 className="bg-secondary d-flex flex-column p-5"
                 style={{ height: 300 }}
               >
-                <h3 className="text-white mb-3">Make Appointment</h3>
+                <h3 className="text-white mb-3">
+                  {bannerContent.banner_3.Title}
+                </h3>
                 <p className="text-white">
-                  Ipsum erat ipsum dolor clita rebum no rebum dolores labore,
-                  ipsum magna at eos et eos amet.
+                  {bannerContent.banner_3.Description}
                 </p>
-                <h2 className="text-white mb-0">+012 345 6789</h2>
+                <h2 className="text-white mb-0">
+                  {bannerContent.banner_3.Contact_Number}
+                </h2>
               </div>
             </div>
           </div>

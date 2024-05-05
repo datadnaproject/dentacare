@@ -2,8 +2,40 @@ import React, { useState, useEffect } from "react";
 import firebase from "firebase/compat/app";
 import "firebase/compat/database";
 import "firebase/compat/storage";
+import "firebase/compat/firestore";
 
 export function Contact() {
+  const [contactContent, setContactContent] = useState({
+    title: "",
+    contactDetails: "",
+  });
+
+  useEffect(() => {
+    const fetchContactContent = async () => {
+      try {
+        const snapshot = await firebase
+          .database()
+          .ref("Contact_Section")
+          .once("value");
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          const { Contact_Title, Contact_Details } = data;
+
+          setContactContent({
+            title: Contact_Title || "",
+            contactDetails: Contact_Details || "",
+          });
+        } else {
+          console.error("Contact section content not found in database");
+        }
+      } catch (error) {
+        console.error("Error fetching contact content:", error);
+      }
+    };
+
+    fetchContactContent();
+  }, []);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
@@ -82,27 +114,39 @@ export function Contact() {
                   <h5 className="position-relative d-inline-block text-primary text-uppercase">
                     Contact Us
                   </h5>
-                  <h1 className="display-6 mb-4">Feel Free To Contact Us</h1>
+                  <h1 className="display-6 mb-4">{contactContent.title}</h1>
                 </div>
                 <div className="d-flex align-items-center mb-2">
                   <i className="bi bi-geo-alt fs-1 text-primary me-3" />
                   <div className="text-start">
-                    <h5 className="mb-0">Our Office</h5>
-                    <span>123 Street, New York, USA</span>
+                    <h5 className="mb-0">
+                      {contactContent.contactDetails.Contact_1?.Title}
+                    </h5>
+                    <span>
+                      {contactContent.contactDetails.Contact_1?.Location}
+                    </span>
                   </div>
                 </div>
                 <div className="d-flex align-items-center mb-2">
                   <i className="bi bi-envelope-open fs-1 text-primary me-3" />
                   <div className="text-start">
-                    <h5 className="mb-0">Email Us</h5>
-                    <span>info@example.com</span>
+                    <h5 className="mb-0">
+                      {contactContent.contactDetails.Contact_2?.Title}
+                    </h5>
+                    <span>
+                      {contactContent.contactDetails.Contact_2?.Email}
+                    </span>
                   </div>
                 </div>
                 <div className="d-flex align-items-center">
                   <i className="bi bi-phone-vibrate fs-1 text-primary me-3" />
                   <div className="text-start">
-                    <h5 className="mb-0">Call Us</h5>
-                    <span>+012 345 6789</span>
+                    <h5 className="mb-0">
+                      {contactContent.contactDetails.Contact_3?.Title}
+                    </h5>
+                    <span>
+                      {contactContent.contactDetails.Contact_3?.Contact_Number}
+                    </span>
                   </div>
                 </div>
               </div>
