@@ -5,7 +5,7 @@ import { Header } from "./Header";
 import { Pricing } from "./Pricing";
 import { Newsletter } from "./Newsletter";
 import { Footer } from "./Footer";
-import { BackToTop } from "./BackToTop";
+import BackToTop from "./BackToTop";
 
 export function PricingPage() {
   return (

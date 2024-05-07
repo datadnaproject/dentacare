@@ -16,6 +16,8 @@
     "owl.carousel": "^2.3.4",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.2",
+    "react-compare-image": "^3.4.0",
+    "react-datepicker": "^6.9.0",
     "react-dom": "^18.3.1",
     "react-multi-carousel": "^2.8.5",
     "react-owl-carousel": "^2.3.3",
@@ -26,7 +28,8 @@
     "slick-carousel": "^1.8.1",
     "tempusdominus-bootstrap-4": "^5.39.2",
     "web-vitals": "^2.1.4",
-    "wow.js": "^1.2.2"
+    "wow.js": "^1.2.2",
+    "wowjs": "^1.1.3"
   },
   "scripts": {
     "start": "react-scripts start",

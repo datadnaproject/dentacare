@@ -1,14 +1,7 @@
+import React from "react";
 
-export function BackToTop() {
-  return (
-    <>
-      {/* Back to Top */}
-      <a
-        href="#"
-        className="btn btn-lg btn-primary btn-lg-square rounded back-to-top"
-      >
-        <i className="bi bi-arrow-up" />
-      </a>
-    </>
-  );
+function BackToTop() {
+  return <div></div>;
 }
+
+export default BackToTop;

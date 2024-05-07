@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/database";
@@ -79,7 +81,14 @@ export function Banner() {
                   {" "}
                   {bannerContent.banner_2.Title}
                 </h3>
-                <div
+                <DatePicker
+                  selected={null} // Set this to the state where you store the selected date
+                  onChange={(date) => console.log(date)} // Handle the change event
+                  placeholderText="Appointment Date"
+                  className="form-control bg-light border-0 mb-3"
+                  style={{ height: 40 }}
+                />
+                {/* <div
                   className="date mb-3"
                   id="date"
                   data-target-input="nearest"
@@ -92,7 +101,7 @@ export function Banner() {
                     data-toggle="datetimepicker"
                     style={{ height: 40 }}
                   />
-                </div>
+                </div> */}
                 <select
                   className="form-select bg-light border-0 mb-3"
                   style={{ height: 40 }}

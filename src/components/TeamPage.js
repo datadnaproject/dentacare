@@ -5,7 +5,7 @@ import { Header } from "./Header";
 import { Team } from "./Team";
 import { Newsletter } from "./Newsletter";
 import { Footer } from "./Footer";
-import { BackToTop } from "./BackToTop";
+import BackToTop from "./BackToTop";
 
 export function TeamPage() {
   return (

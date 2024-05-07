@@ -12,6 +12,8 @@ export function Navbar() {
   const [userName, setUserName] = useState("");
   const navigate = useNavigate();
 
+  const [isSticky, setIsSticky] = useState(false);
+
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -39,10 +41,30 @@ export function Navbar() {
       });
   };
 
+  // Sticky Navbar
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsSticky(true);
+      } else {
+        setIsSticky(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <>
       {/* Navbar Start */}
-      <nav className="navbar navbar-expand-lg bg-white navbar-light shadow-sm px-5 py-3 py-lg-0">
+      <nav
+        className={`${
+          isSticky ? "sticky-top" : ""
+        } navbar navbar-expand-lg bg-white navbar-light shadow-sm px-5 py-3 py-lg-0`}
+      >
         <NavLink to="/" className="navbar-brand p-0">
           <h1 className="m-0 text-primary">
             <i className="fa fa-tooth me-2" />

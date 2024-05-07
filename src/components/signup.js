@@ -108,7 +108,7 @@ const SignUpForm = () => {
             {message}
           </p>
           <p className="mt-3 text-center">
-            Already have an account? <Link to="/login">Sign in</Link>
+            Already have an account? <Link to="/signin">Sign in</Link>
           </p>
         </form>
       </div>

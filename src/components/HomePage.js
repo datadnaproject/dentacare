@@ -12,9 +12,12 @@ import { Testimonial } from "./Testimonial";
 import { Team } from "./Team";
 import { Newsletter } from "./Newsletter";
 import { Footer } from "./Footer";
-import { BackToTop } from "./BackToTop";
+import BackToTop from "./BackToTop";
 
 export function HomePage() {
+  const top = () => {
+    window.scrollTo(0, 0);
+  };
   return (
     <>
       <Topbar />
@@ -31,7 +34,10 @@ export function HomePage() {
       <Team />
       <Newsletter />
       <Footer />
-      <BackToTop />
+      {/* <BackToTop /> */}
+      {/* <button onClick={top} className="topbtn">
+        Top
+      </button> */}
     </>
   );
 }

@@ -1,12 +1,13 @@
-import beforeimage from "../assets/img/before.jpg";
-import afterimage from "../assets/img/after.jpg";
-import serviceImg1 from "../assets/img/service-1.jpg";
-
 import React, { useState, useEffect } from "react";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/database";
 import "firebase/compat/firestore";
+
+import ReactCompareImage from "react-compare-image";
+import beforeImage from "../assets/img/before.jpg";
+import afterImage from "../assets/img/after.jpg";
+import serviceImg1 from "../assets/img/service-1.jpg";
 
 export function Service() {
   const [serviceContent, setServiceContent] = useState({
@@ -53,7 +54,15 @@ export function Service() {
               data-wow-delay="0.3s"
               style={{ minHeight: 400 }}
             >
-              <div className="twentytwenty-container position-relative h-100 rounded overflow-hidden">
+              <ReactCompareImage
+                leftImage={beforeImage}
+                rightImage={afterImage}
+                leftImageAlt="Before"
+                rightImageAlt="After"
+                leftImageLabel="Before"
+                rightImageLabel="After"
+              />
+              {/* <div className="demo twentytwenty-container position-relative h-100 rounded overflow-hidden">
                 <img
                   className="position-absolute w-100 h-100"
                   src={beforeimage}
@@ -64,7 +73,7 @@ export function Service() {
                   src={afterimage}
                   style={{ objectFit: "cover" }}
                 />
-              </div>
+              </div> */}
             </div>
             <div className="col-lg-7">
               <div className="section-title mb-5">

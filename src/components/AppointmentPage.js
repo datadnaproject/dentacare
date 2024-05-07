@@ -5,7 +5,7 @@ import { Header } from "./Header";
 import { Appointment } from "./Appointment";
 import { Newsletter } from "./Newsletter";
 import { Footer } from "./Footer";
-import { BackToTop } from "./BackToTop";
+import BackToTop from "./BackToTop";
 
 export function AppointmentPage() {
   return (

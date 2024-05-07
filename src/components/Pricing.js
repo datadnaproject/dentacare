@@ -1,9 +1,9 @@
-import priceImg1 from "../assets/img/price-1.jpg";
-
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-
 import React, { useState, useEffect } from "react";
+import priceImg1 from "../assets/img/price-1.jpg";
+import OwlCarousel from "react-owl-carousel";
+import "owl.carousel/dist/assets/owl.carousel.min.css";
+import "owl.carousel/dist/assets/owl.theme.default.min.css";
+
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/database";
@@ -36,7 +36,7 @@ export function Pricing() {
             title: Pricing_Title || "",
             description: Pricing_Description || "",
             contactNumber: Contact_Number || "",
-            pricingPlans: Pricing_Plans.filter((plan) => !!plan.Title) || [], // Filter out plans without a title
+            pricingPlans: Pricing_Plans.filter((plan) => !!plan.Title) || [],
           });
         } else {
           console.error("Pricing plan section content not found in database");
@@ -50,7 +50,7 @@ export function Pricing() {
   }, []);
 
   return (
-    <div className="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+    <div className="container-fluid py-5">
       <div className="container">
         <div className="row g-5">
           <div className="col-lg-5">
@@ -61,33 +61,41 @@ export function Pricing() {
               <h1 className="display-5 mb-0">{pricingContent.title}</h1>
             </div>
             <p className="mb-4">{pricingContent.description}</p>
-            <h5
-              className="text-uppercase text-primary wow fadeInUp"
-              data-wow-delay="0.3s"
-            >
+            <h5 className="text-uppercase text-primary">
               Call for Appointment
             </h5>
-            <h1 className="wow fadeInUp" data-wow-delay="0.6s">
-              {pricingContent.contactNumber}
-            </h1>
+            <h1>{pricingContent.contactNumber}</h1>
           </div>
 
           <div className="col-lg-7">
-            <Carousel
-              showArrows={true}
-              infiniteLoop={true}
-              showThumbs={false}
-              showStatus={false}
-              autoPlay={true}
-              interval={5000}
+            <OwlCarousel
+              className="owl-theme price-carousel"
+              items="2"
+              autoplay={true}
+              loop
+              smartSpeed="1500"
+              nav={true}
+              autoplayHoverPause
+              navText={[
+                `<i class="bi bi-arrow-left"></i>`,
+                `<i class="bi bi-arrow-right"></i>`,
+              ]}
+              responsive={{
+                0: {
+                  items: 1,
+                },
+                768: {
+                  items: 2,
+                },
+              }}
             >
               {pricingContent.pricingPlans.map((plan, index) => (
-                <div key={index} className="price-item pb-3">
+                <div key={index} className="item me-3 ms-3 mb-4">
                   <div className="position-relative">
                     <img
                       className="img-fluid rounded-top"
                       src={priceImg1}
-                      alt=""
+                      alt="price plans"
                     />
                     <div
                       className="d-flex align-items-center justify-content-center bg-light rounded pt-2 px-3 position-absolute top-100 start-50 translate-middle"
@@ -98,6 +106,7 @@ export function Pricing() {
                   </div>
                   <div className="position-relative text-center bg-light border-bottom border-primary py-5 p-4">
                     <h4>{plan.Title}</h4>
+                    <hr className="text-primary w-50 mx-auto mt-0" />
                     {plan.Benefits.map((benefit, index) => (
                       <div
                         key={index}
@@ -107,17 +116,16 @@ export function Pricing() {
                         <i className="fa fa-check text-primary pt-1" />
                       </div>
                     ))}
-
                     <a
                       href="appointment.html"
-                      className="btn btn-primary py-2 px-14 position-absolute top-100 start-50 translate-middle"
+                      className="btn btn-primary py-2 px-4 position-absolute top-100 start-50 translate-middle"
                     >
                       Appointment
                     </a>
                   </div>
                 </div>
               ))}
-            </Carousel>
+            </OwlCarousel>
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@ import { FullSearch } from "./FullSearch";
 import { Contact } from "./Contact";
 import { Newsletter } from "./Newsletter";
 import { Footer } from "./Footer";
-import { BackToTop } from "./BackToTop";
+import BackToTop from "./BackToTop";
 import { Header } from "./Header";
 
 export function ContactPage() {

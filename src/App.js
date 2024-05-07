@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HomePage } from "./components/HomePage";
 import { ContactPage } from "./components/ContactPage";
@@ -17,17 +17,27 @@ import AdminPage from "./components/AdminPage";
 
 import "./assets/css/bootstrap.min.css";
 import "./assets/css/style.css";
-import "./assets/lib/animate/animate.css";
-import "./assets/lib/animate/animate.min.css";
-import "./assets/js/main";
+import WOW from "wowjs";
+// import "./assets/js/main";
+
+import { Test1 } from "./components/Test1";
 
 function App() {
+  useEffect(() => {
+    const wow = new WOW.WOW({
+      live: false,
+    });
+    wow.init();
+  }, []);
+
   return (
     <>
       <BrowserRouter>
         <Routes>
           <Route index element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/t" element={<Test1 />} />
+
           <Route path="/service" element={<ServicePage />} />
           <Route path="/pricing" element={<PricingPage />} />
           <Route path="/team" element={<TeamPage />} />
