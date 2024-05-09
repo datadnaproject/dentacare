@@ -1,5 +1,5 @@
-import slideImg1 from "../assets/img/carousel-1.jpg";
-import slideImg2 from "../assets/img/carousel-2.jpg";
+// import slideImg1 from "../assets/img/carousel-1.jpg";
+// import slideImg2 from "../assets/img/carousel-2.jpg";
 
 import React, { useState, useEffect } from "react";
 import firebase from "firebase/compat/app";
@@ -9,7 +9,9 @@ import "firebase/compat/firestore";
 
 export function Hero() {
   const [heroContent, setHeroContent] = useState([]);
+  const [imageUrls, setImageUrls] = useState("");
 
+  // fetch content from database
   useEffect(() => {
     const fetchHeroContent = async () => {
       try {
@@ -34,6 +36,32 @@ export function Hero() {
 
     fetchHeroContent();
   }, []);
+
+  // fetch images from storage
+  useEffect(() => {
+    async function fetchImageUrls() {
+      try {
+        const storageRef = firebase.storage().ref("Hero_Section");
+
+        // Get list of items (images) in the directory
+        const listResult = await storageRef.listAll();
+
+        // Fetch download URL for each item (image) in the directory
+        const urls = await Promise.all(
+          listResult.items.map(async (itemRef) => {
+            return await itemRef.getDownloadURL();
+          })
+        );
+
+        setImageUrls(urls); // Set the array of image URLs to state
+      } catch (error) {
+        console.error("Error fetching image URLs:", error);
+      }
+    }
+
+    fetchImageUrls();
+  }, []);
+
   return (
     <>
       {/* Carousel Start */}
@@ -51,8 +79,9 @@ export function Hero() {
               >
                 <img
                   className="w-100"
-                  src={index === 0 ? slideImg1 : slideImg2}
-                  alt="Image"
+                  key={index}
+                  src={imageUrls[index]}
+                  alt={`Image ${index + 1}`}
                 />
                 <div className="carousel-caption d-flex flex-column align-items-center justify-content-center">
                   <div className="p-3" style={{ maxWidth: 900 }}>

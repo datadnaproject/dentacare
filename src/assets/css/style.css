@@ -259,12 +259,15 @@ h6,
   left: -22.5px;
   display: flex;
   justify-content: space-between;
-  opacity: 0;
   transition: 0.5s;
+  font-size: larger;
+  color: var(--light);
 }
 
-.price-carousel:hover .owl-nav {
+.price-carousel:hover .owl-nav .owl-prev,
+.price-carousel:hover .owl-nav .owl-next {
   opacity: 1;
+  background: var(--primary);
 }
 
 .price-carousel .owl-nav .owl-prev,
@@ -280,6 +283,7 @@ h6,
   border-radius: 2px;
   font-size: 22px;
   transition: 0.5s;
+  opacity: 1;
 }
 
 .price-carousel .owl-nav .owl-prev:hover,
@@ -305,6 +309,13 @@ h6,
   display: flex;
   justify-content: space-between;
   z-index: 1;
+  color: transparent;
+  font-size: larger;
+}
+.testimonial-carousel:hover .owl-nav .owl-prev,
+.testimonial-carousel:hover .owl-nav .owl-next {
+  background: var(--primary);
+  color: var(--light);
 }
 
 .testimonial-carousel .owl-nav .owl-prev,
@@ -330,4 +341,299 @@ h6,
 .testimonial-carousel .owl-item img {
   width: 120px;
   height: 120px;
+}
+
+/* adminData */
+.admin_table_section {
+  padding-bottom: 20px;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+#adminTable {
+  display: table;
+  width: auto;
+  padding: 30px 100px;
+  -webkit-box-shadow: 0 0 15px 10px rgba(0, 0, 0, 0.07);
+  box-shadow: 0 0 15px 10px rgba(0, 0, 0, 0.07);
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin_table_section h2 {
+  color: #007bff;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+#adminTable th,
+#adminTable td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+#adminTable th {
+  background-color: #007bff;
+  padding-bottom: 10px;
+}
+
+#adminTable tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#adminTable tbody tr:hover {
+  background-color: #ddd;
+}
+
+#adminTable button {
+  background-color: #007bff;
+  padding: 5px 5px;
+}
+
+.admin_form h4 {
+  font-size: 35px;
+  text-align: center;
+  color: #007bff;
+  padding-top: 15px;
+}
+
+.admin_form {
+  display: block;
+  width: auto;
+  padding: 30px 100px;
+  -webkit-box-shadow: 0 0 15px 10px rgba(0, 0, 0, 0.07);
+  box-shadow: 0 0 15px 10px rgba(0, 0, 0, 0.07);
+}
+
+.admin_form label {
+  font-size: 20px;
+  color: black;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-style: inherit;
+}
+
+.admin_form .form-control {
+  background-color: transparent;
+  border: 1px solid #007bff;
+  height: 45px;
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-radius: 5px;
+  padding: 0 15px;
+}
+
+.admin_form .form-control::-webkit-input-placeholder {
+  color: #007bff;
+}
+
+.admin_form #inputDate {
+  color: #007bff;
+}
+
+.admin_form #inputDate input {
+  color: #007bff;
+}
+
+.admin_form button.btn {
+  background-color: #252525;
+  color: #ffffff;
+  padding: 10px 45px;
+  border-radius: 5px;
+  margin-top: 10px;
+  text-transform: uppercase;
+}
+
+.appointments_table_section {
+  padding-bottom: 20px;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+#appointmentsTable {
+  display: table;
+  width: auto;
+  padding: 30px 100px;
+  -webkit-box-shadow: 0 0 15px 10px rgba(0, 0, 0, 0.07);
+  box-shadow: 0 0 15px 10px rgba(0, 0, 0, 0.07);
+  width: 100%;
+  border-collapse: collapse;
+  padding-bottom: 100px;
+}
+
+.appointments_table_section h2 {
+  color: #007bff;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+#appointmentsTable th,
+#appointmentsTable td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+#appointmentsTable th {
+  background-color: #007bff;
+  padding-bottom: 10px;
+}
+
+#appointmentsTable tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#appointmentsTable tbody tr:hover {
+  background-color: #ddd;
+}
+
+#appointmentsTable button {
+  background-color: #007bff;
+  padding: 5px 5px;
+}
+
+.date-filters,
+.filter1 {
+  display: flex;
+  align-items: center;
+}
+
+.filter {
+  margin-right: 20px; /* Adjust spacing between elements */
+}
+
+@media (max-width: 768px) {
+  input[type="date"] {
+    width: 90%;
+  }
+
+  select {
+    width: 80%;
+    margin-bottom: 20px;
+  }
+
+  .date-filters {
+    flex-direction: row;
+  }
+}
+
+/* appointment-form */
+.ftco-intro {
+  color: #fff;
+}
+.ftco-intro .container {
+  margin-top: -100px;
+}
+
+@media (min-width: 768px) {
+  .ftco-intro .container {
+    margin-top: -100px;
+  }
+}
+.ftco-intro .color-1 {
+  background: #2cbcbc;
+}
+.ftco-intro .color-2 {
+  background: #21aac4;
+}
+.ftco-intro .color-3 {
+  background: #2f89fc;
+  background: -moz-linear-gradient(-45deg, #2f89fc 0%, #2cbcbc 100%);
+  background: -webkit-gradient(
+    left top,
+    right bottom,
+    color-stop(0%, #2f89fc),
+    color-stop(100%, #2cbcbc)
+  );
+  background: -webkit-linear-gradient(-45deg, #2f89fc 0%, #2cbcbc 100%);
+  background: -o-linear-gradient(-45deg, #2f89fc 0%, #2cbcbc 100%);
+  background: -ms-linear-gradient(-45deg, #2f89fc 0%, #2cbcbc 100%);
+  background: -webkit-linear-gradient(315deg, #2f89fc 0%, #2cbcbc 100%);
+  background: -o-linear-gradient(315deg, #2f89fc 0%, #2cbcbc 100%);
+  background: linear-gradient(135deg, #2f89fc 0%, #2cbcbc 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2f89fc', endColorstr='#00dc94', GradientType=1 );
+}
+.ftco-intro h3 {
+  font-size: 20px;
+  color: #fff;
+}
+.ftco-intro .phone-number {
+  font-size: 18px;
+}
+.ftco-intro .openinghours {
+  display: block;
+  width: 100%;
+  font-size: 14px;
+}
+.ftco-intro .openinghours span {
+  width: 50%;
+  display: block;
+}
+.ftco-intro .appointment-form .form-group {
+  position: relative;
+}
+.ftco-intro .appointment-form .form-group input,
+.ftco-intro .appointment-form .form-group select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff !important;
+  font-size: 14px;
+  padding-right: 20px !important;
+}
+.ftco-intro .appointment-form .form-group input option,
+.ftco-intro .appointment-form .form-group select option {
+  color: #fff;
+}
+.ftco-intro .appointment-form .form-group input::-webkit-input-placeholder,
+.ftco-intro .appointment-form .form-group select::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: #fff !important;
+}
+.ftco-intro .appointment-form .form-group input::-moz-placeholder,
+.ftco-intro .appointment-form .form-group select::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #fff !important;
+}
+.ftco-intro .appointment-form .form-group input:-ms-input-placeholder,
+.ftco-intro .appointment-form .form-group select:-ms-input-placeholder {
+  /* IE 10+ */
+  color: #fff !important;
+}
+.ftco-intro .appointment-form .form-group input:-moz-placeholder,
+.ftco-intro .appointment-form .form-group select:-moz-placeholder {
+  /* Firefox 18- */
+  color: #fff !important;
+}
+.ftco-intro .appointment-form .form-group .btn-primary {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  padding-left: 0;
+  padding-right: 0 !important;
+}
+.ftco-intro .appointment-form .icon {
+  position: absolute;
+  top: 50% !important;
+  right: 0;
+  font-size: 14px;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  color: #fff;
+}
+@media (max-width: 767.98px) {
+  .ftco-intro .appointment-form .icon {
+    right: 10px;
+  }
 }

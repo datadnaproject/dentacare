@@ -6,6 +6,8 @@ import "firebase/compat/auth";
 import "firebase/compat/database";
 import "firebase/compat/firestore";
 
+import SeoPage from "./SeoPage";
+
 export function Banner() {
   const [bannerContent, setBannerContent] = useState({
     banner_1: "",
@@ -59,25 +61,19 @@ export function Banner() {
                     <p className="mb-0">{time.Time}</p>
                   </div>
                 ))}
-                {/* <div className="d-flex justify-content-between text-white mb-3">
-                  <h6 className="text-white mb-0">Saturday</h6>
-                  <p className="mb-0"> 8:00am - 7:00pm</p>
-                </div>
-                <div className="d-flex justify-content-between text-white mb-3">
-                  <h6 className="text-white mb-0">Sunday</h6>
-                  <p className="mb-0"> 8:00am - 5:00pm</p>
-                </div> */}
                 <a className="btn btn-light" to="/appointment">
                   Appointment
                 </a>
               </div>
             </div>
             <div className="col-lg-4 wow zoomIn" data-wow-delay="0.3s">
+              
               <div
                 className="bg-dark d-flex flex-column p-5"
                 style={{ height: 300 }}
               >
-                <h3 className="text-white mb-3">
+                <SeoPage />
+                {/* <h3 className="text-white mb-3">
                   {" "}
                   {bannerContent.banner_2.Title}
                 </h3>
@@ -88,20 +84,6 @@ export function Banner() {
                   className="form-control bg-light border-0 mb-3"
                   style={{ height: 40 }}
                 />
-                {/* <div
-                  className="date mb-3"
-                  id="date"
-                  data-target-input="nearest"
-                >
-                  <input
-                    type="text"
-                    className="form-control bg-light border-0 datetimepicker-input"
-                    placeholder="Appointment Date"
-                    data-target="#date"
-                    data-toggle="datetimepicker"
-                    style={{ height: 40 }}
-                  />
-                </div> */}
                 <select
                   className="form-select bg-light border-0 mb-3"
                   style={{ height: 40 }}
@@ -113,7 +95,7 @@ export function Banner() {
                 </select>
                 <a className="btn btn-light" href="">
                   Search Doctor
-                </a>
+                </a> */}
               </div>
             </div>
             <div className="col-lg-4 wow zoomIn" data-wow-delay="0.6s">

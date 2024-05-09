@@ -20,7 +20,7 @@ import "./assets/css/style.css";
 import WOW from "wowjs";
 // import "./assets/js/main";
 
-import { Test1 } from "./components/Test1";
+// import { Test1 } from "./components/Test1";
 
 function App() {
   useEffect(() => {
@@ -36,7 +36,7 @@ function App() {
         <Routes>
           <Route index element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
-          <Route path="/t" element={<Test1 />} />
+          {/* <Route path="/t" element={<Test1 />} /> */}
 
           <Route path="/service" element={<ServicePage />} />
           <Route path="/pricing" element={<PricingPage />} />
@@ -48,7 +48,7 @@ function App() {
           <Route path="/signup" element={<SignUpForm />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/seo-settings" element={<SeoPage />} />
-          <Route path="/adminPage" element={<AdminPage />} />
+          <Route path="/adminpage" element={<AdminPage />} />
           <Route path="*" element={<HomePage />} />
         </Routes>
       </BrowserRouter>
