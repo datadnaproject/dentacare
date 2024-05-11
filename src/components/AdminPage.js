@@ -182,7 +182,9 @@ function AdminPage() {
               .remove()
               .then(() => {
                 console.log("Appointment data deleted from Firebase");
-                window.location.href = "/adminpage";
+                setTimeout(() => {
+                  window.location.reload();
+                }, 500); // Adjust the delay time as needed
               })
               .catch((error) => {
                 console.error(
