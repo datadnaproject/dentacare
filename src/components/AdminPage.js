@@ -11,16 +11,28 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
+import "./Banner";
+
+import {
+  PDFDownloadLink,
+  Page,
+  Text,
+  View,
+  Document,
+  StyleSheet,
+} from "@react-pdf/renderer";
+const styles = StyleSheet;
 function AdminPage() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [age, setAge] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [gender, setGender] = useState("");
-  const [location, setLocation] = useState("");
-  const [message, setMessage] = useState("");
+  // const [firstName, setFirstName] = useState("");
+  // const [lastName, setLastName] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [age, setAge] = useState("");
+  // const [phoneNumber, setPhoneNumber] = useState("");
+  // const [gender, setGender] = useState("");
+  // const [location, setLocation] = useState("");
+  // const [message, setMessage] = useState("");
 
   //admin
   const [startDate, setStartDate] = useState(new Date());
@@ -52,7 +64,7 @@ function AdminPage() {
       const doctors = snapshot.val();
       if (doctors) {
         const doctorNames = Object.values(doctors);
-        setDoctorOptions(doctorNames);
+        setDoctorOptions1(doctorNames);
 
         if (doctorNames.length > 0) {
           setDoctorName(doctorNames[0]);
@@ -149,103 +161,175 @@ function AdminPage() {
     };
   }, []);
 
+  const handleDeleteAppointment = (date, patientName) => {
+    // Reference to the appointments node
+    const appointmentsRef = firebase.database().ref("Appointment_tab");
+
+    // Query appointments with the specified date
+    appointmentsRef
+      .orderByChild("Appointmenttab_date")
+      .equalTo(date)
+      .once("value", (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+          const appointment = childSnapshot.val();
+          // Check if the appointment matches both the specified date and patient name
+          if (
+            appointment.Appointmenttab_date === date &&
+            appointment.Appointmenttab_name === patientName
+          ) {
+            // Remove the appointment entry
+            childSnapshot.ref
+              .remove()
+              .then(() => {
+                console.log("Appointment data deleted from Firebase");
+                window.location.href = "/adminpage";
+              })
+              .catch((error) => {
+                console.error(
+                  "Error deleting appointment data from Firebase: ",
+                  error
+                );
+              });
+          }
+        });
+      });
+  };
+
+  const filterAppointments = () => {
+    let filteredAppointments = [...appointmentsData];
+    if (fromDate && toDate) {
+      filteredAppointments = filteredAppointments.filter(
+        (appointment) =>
+          new Date(appointment.Appointmenttab_date) >= new Date(fromDate) &&
+          new Date(appointment.Appointmenttab_date) <= new Date(toDate)
+      );
+    }
+
+    if (selectedDoctor) {
+      filteredAppointments = filteredAppointments.filter(
+        (appointment) =>
+          appointment.Appointmenttab_doctorname === selectedDoctor
+      );
+    }
+
+    return filteredAppointments;
+  };
+
+  useEffect(() => {
+    const fetchAppointments = () => {
+      const appointmentsRef = firebase.database().ref("Appointment_tab");
+      appointmentsRef.once("value", (snapshot) => {
+        const appointments = snapshot.val();
+        if (appointments) {
+          const appointmentsArray = Object.values(appointments);
+          setAppointmentsData(appointmentsArray);
+        } else {
+          setAppointmentsData([]);
+        }
+      });
+    };
+    fetchAppointments();
+    return () => {
+      firebase.database().ref("Appointment_tab").off();
+    };
+  }, []);
   // export in pdf
 
-  // const PDFDocument = ({ data }) => (
-  //   <Document>
-  //     <Page size="A4" style={styles.page}>
-  //       <View style={styles.section}>
-  //         <View style={styles.table}>
-  //           <View style={styles.tableRow}>
-  //             <View style={styles.tableColHeader}>
-  //               <Text>Doctor Name</Text>
-  //             </View>
-  //             <View style={styles.tableColHeader}>
-  //               <Text>Date</Text>
-  //             </View>
-  //             <View style={styles.tableColHeader}>
-  //               <Text>Time</Text>
-  //             </View>
-  //           </View>
-  //           {data.map((item, index) => (
-  //             <View
-  //               key={index}
-  //               style={
-  //                 index % 2 === 0
-  //                   ? { ...styles.tableRow, backgroundColor: "#DDDDDD" }
-  //                   : styles.tableRow
-  //               }
-  //             >
-  //               <View style={styles.tableCol}>
-  //                 <Text>{item.doctorName}</Text>
-  //               </View>
-  //               <View style={styles.tableCol}>
-  //                 <Text>{item.date}</Text>
-  //               </View>
-  //               <View style={styles.tableCol}>
-  //                 <Text>{item.timeRange}</Text>
-  //               </View>
-  //             </View>
-  //           ))}
-  //         </View>
-  //       </View>
-  //     </Page>
-  //   </Document>
-  // );
+  const PDFDocument = ({ data }) => (
+    <Document>
+      <Page size="A4" style={styles.page}>
+        <View style={styles.section}>
+          <View style={styles.table}>
+            <View style={styles.tableRow}>
+              <View style={styles.tableColHeader}>
+                <Text>Doctor Name</Text>
+              </View>
+              <View style={styles.tableColHeader}>
+                <Text>Date</Text>
+              </View>
+              <View style={styles.tableColHeader}>
+                <Text>Time</Text>
+              </View>
+            </View>
+            {data.map((item, index) => (
+              <View
+                key={index}
+                style={
+                  index % 2 === 0
+                    ? { ...styles.tableRow, backgroundColor: "#DDDDDD" }
+                    : styles.tableRow
+                }
+              >
+                <View style={styles.tableCol}>
+                  <Text>{item.doctorName}</Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text>{item.date}</Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text>{item.timeRange}</Text>
+                </View>
+              </View>
+            ))}
+          </View>
+        </View>
+      </Page>
+    </Document>
+  );
 
-  // const PDFDocument1 = ({ appointmentsData }) => (
-  //   <Document>
-  //     <Page size="A4" style={styles.page}>
-  //       <View style={styles.section}>
-  //         <View style={styles.table}>
-  //           <View style={styles.tableRow}>
-  //             <View style={styles.tableColHeader}>
-  //               <Text>Date</Text>
-  //             </View>
-  //             <View style={styles.tableColHeader}>
-  //               <Text>Patient Name</Text>
-  //             </View>
-  //             <View style={styles.tableColHeader}>
-  //               <Text>Treatment</Text>
-  //             </View>
-  //             <View style={styles.tableColHeader}>
-  //               <Text>Doctor Name</Text>
-  //             </View>
-  //             <View style={styles.tableColHeader}>
-  //               <Text>Symptoms</Text>
-  //             </View>
-  //           </View>
-  //           {appointmentsData.map((item, index) => (
-  //             <View
-  //               key={index}
-  //               style={
-  //                 index % 2 === 0
-  //                   ? { ...styles.tableRow, backgroundColor: "#DDDDDD" }
-  //                   : styles.tableRow
-  //               }
-  //             >
-  //               <View style={styles.tableCol}>
-  //                 <Text>{item.date}</Text>
-  //               </View>
-  //               <View style={styles.tableCol}>
-  //                 <Text>{item.patientName}</Text>
-  //               </View>
-  //               <View style={styles.tableCol}>
-  //                 <Text>{item.departmentName}</Text>
-  //               </View>
-  //               <View style={styles.tableCol}>
-  //                 <Text>{item.doctorName}</Text>
-  //               </View>
-  //               <View style={styles.tableCol}>
-  //                 <Text>{item.symptoms}</Text>
-  //               </View>
-  //             </View>
-  //           ))}
-  //         </View>
-  //       </View>
-  //     </Page>
-  //   </Document>
-  // );
+  const PDFDocument1 = ({ appointmentsData }) => (
+    <Document>
+      <Page size="A4" style={styles.page}>
+        <View style={styles.section}>
+          <View style={styles.table}>
+            <View style={styles.tableRow}>
+              <View style={styles.tableColHeader}>
+                <Text>Date</Text>
+              </View>
+              <View style={styles.tableColHeader}>
+                <Text>Patient Name</Text>
+              </View>
+              <View style={styles.tableColHeader}>
+                <Text>Treatment</Text>
+              </View>
+              <View style={styles.tableColHeader}>
+                <Text>Doctor Name</Text>
+              </View>
+              <View style={styles.tableColHeader}>
+                <Text>Symptoms</Text>
+              </View>
+            </View>
+            {appointmentsData.map((item, index) => (
+              <View
+                key={index}
+                style={
+                  index % 2 === 0
+                    ? { ...styles.tableRow, backgroundColor: "#DDDDDD" }
+                    : styles.tableRow
+                }
+              >
+                <View style={styles.tableCol}>
+                  <Text>{item.date}</Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text>{item.patientName}</Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text>{item.departmentName}</Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text>{item.doctorName}</Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text>{item.symptoms}</Text>
+                </View>
+              </View>
+            ))}
+          </View>
+        </View>
+      </Page>
+    </Document>
+  );
 
   return (
     <>
@@ -265,7 +349,7 @@ function AdminPage() {
                   Book <span>Appointment</span>
                 </h4>
                 <div className="form-row ">
-                  {doctorOptions.length > 0 && (
+                  {doctorOptions1.length > 0 && (
                     <div className="form-group col-lg-4">
                       <label htmlFor="inputDoctorName">Doctor Name</label>
                       <select
@@ -275,7 +359,7 @@ function AdminPage() {
                         value={doctorName}
                         onChange={(e) => setDoctorName(e.target.value)}
                       >
-                        {doctorOptions.map((doctor, index) => (
+                        {doctorOptions1.map((doctor, index) => (
                           <option key={index}>{doctor}</option>
                         ))}
                       </select>
@@ -382,14 +466,14 @@ function AdminPage() {
           <div className="table-container"></div>
           <h2>Appointment Table</h2>
           <div className="mb-3">
-            {/* <PDFDownloadLink
+            <PDFDownloadLink
               document={<PDFDocument data={data} />}
               fileName="appointment_table.pdf"
             >
               {({ blob, url, loading, error }) =>
                 loading ? "Loading document..." : "Export in pdf"
               }
-            </PDFDownloadLink> */}
+            </PDFDownloadLink>
           </div>
           <table id="adminTable">
             <thead>
@@ -411,16 +495,11 @@ function AdminPage() {
                       icon={faTrash}
                       onClick={(e) => {
                         e.preventDefault();
+                        console.log("Button CLicked");
                         handleDelete(item.doctorName, item.date);
                       }}
                       style={{ cursor: "pointer" }}
                     />
-                    {/* <FaTrash
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleDelete(item.doctorName, item.date);
-                      }}
-                    /> */}
                   </td>
                 </tr>
               ))}
@@ -430,7 +509,7 @@ function AdminPage() {
         </div>
       </section>
       {/*Patient Appointment*/}
-      {/* <section className="appointments_table_section layout_padding-bottom">
+      <section className="appointments_table_section layout_padding-bottom">
         <div className="container">
           <div className="table-container"></div>
           <h2>Patient Appointments</h2>
@@ -500,7 +579,8 @@ function AdminPage() {
                     <td>{item.Appointmenttab_doctorname}</td>
                     <td>{item.Appointmenttab_d}</td>
                     <td>
-                      <faUser
+                      <FontAwesomeIcon
+                        icon={faTrash}
                         onClick={(e) => {
                           e.preventDefault();
                           handleDeleteAppointment(
@@ -508,6 +588,7 @@ function AdminPage() {
                             item.Appointmenttab_name
                           );
                         }}
+                        style={{ cursor: "pointer" }}
                       />
                     </td>
                   </tr>
@@ -516,7 +597,7 @@ function AdminPage() {
             </table>
           </div>
         </div>
-      </section> */}
+      </section>
     </>
   );
 }

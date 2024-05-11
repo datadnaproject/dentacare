@@ -140,6 +140,11 @@ h6,
   z-index: 1;
 }
 
+/* Hero Banner 2 */
+.hero-banner-2 {
+  height: 320px;
+}
+
 @media (max-width: 576px) {
   .carousel-caption h5 {
     font-size: 14px;
@@ -149,6 +154,10 @@ h6,
   .carousel-caption h1 {
     font-size: 30px;
     font-weight: 600 !important;
+  }
+  /* Appointment Banner form */
+  .hero-banner-2 {
+    height: fit-content;
   }
 }
 
@@ -208,7 +217,8 @@ h6,
 }
 
 .appointment-form {
-  background: rgba(6, 163, 218, 0.7);
+  /* background: rgba(6, 163, 218, 0.7); */
+  background: transparent;
 }
 
 .service-item img,
