@@ -1,6 +1,3 @@
-// import slideImg1 from "../assets/img/carousel-1.jpg";
-// import slideImg2 from "../assets/img/carousel-2.jpg";
-
 import React, { useState, useEffect } from "react";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";

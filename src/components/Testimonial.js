@@ -9,8 +9,9 @@ import "owl.carousel/dist/assets/owl.carousel.min.css";
 import "owl.carousel/dist/assets/owl.theme.default.min.css";
 
 export function Testimonial() {
+  const [testimonialBgImageUrl, setTestimonialBgImageUrl] = useState(null);
   const [testimonialContent, setTestimonialContent] = useState([]);
-  const [imageUrls, setImageUrls] = useState("");
+  const [testimonialImageUrls, setTestimonialImageUrls] = useState([]);
 
   useEffect(() => {
     const fetchTestimonialContent = async () => {
@@ -39,7 +40,7 @@ export function Testimonial() {
 
   // fetch images from storage
   useEffect(() => {
-    async function fetchImageUrls() {
+    async function fetchTestimonialImageUrls() {
       try {
         const storageRef = firebase.storage().ref("Testimonial_Section");
 
@@ -53,31 +54,50 @@ export function Testimonial() {
           })
         );
 
-        setImageUrls(urls); // Set the array of image URLs to state
+        setTestimonialImageUrls(urls); // Set the array of image URLs to state
       } catch (error) {
         console.error("Error fetching image URLs:", error);
       }
     }
 
-    fetchImageUrls();
+    fetchTestimonialImageUrls();
+  }, []);
+
+  // fetch background image for testimonial
+  useEffect(() => {
+    async function fetchTestimonialBgImageUrl() {
+      try {
+        const storageRef = firebase.storage().ref("Background_Images");
+        const imageRef = storageRef.child("Testimonial-bg.jpg");
+        const url = await imageRef.getDownloadURL();
+        setTestimonialBgImageUrl(url); // Set the array of image URLs to state
+      } catch (error) {
+        console.error("Error fetching image URL:", error);
+      }
+    }
+
+    fetchTestimonialBgImageUrl();
   }, []);
 
   return (
     <div
       className="container-fluid bg-primary bg-testimonial py-5 my-5 wow fadeInUp"
       data-wow-delay="0.1s"
+      style={{
+        backgroundImage: `url(${testimonialBgImageUrl})`,
+      }}
     >
       <div className="container py-5">
         <div className="row justify-content-center">
           <div className="col-lg-7">
-            {imageUrls.length > 0 ? (
+            {testimonialImageUrls.length > 0 ? (
               <OwlCarousel
                 className="owl-theme testimonial-carousel p-5"
                 items="1"
                 autoplay={true}
                 loop
                 dots={false}
-                smartSpeed="1000"
+                smartSpeed="1500"
                 nav={true}
                 autoplayHoverPause
                 navText={[
@@ -98,7 +118,7 @@ export function Testimonial() {
                     <img
                       key={index}
                       className="img-fluid mx-auto rounded mb-4"
-                      src={imageUrls[index]}
+                      src={testimonialImageUrls[index]}
                       alt={`Image ${index + 1}`}
                     />
                     <p className="fs-5">{slide.description}</p>

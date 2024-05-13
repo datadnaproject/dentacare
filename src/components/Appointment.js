@@ -7,6 +7,7 @@ import "firebase/compat/database";
 import "firebase/compat/firestore";
 
 export function Appointment() {
+  const [appointmentBgImageUrl, setAppointmentBgImageUrl] = useState(null);
   const [appointmentContent, setAppointmentContent] = useState({
     title: "",
     description: "",
@@ -38,12 +39,30 @@ export function Appointment() {
     fetchAppointmentContent();
   }, []);
 
+  // fetch images from storage
+  useEffect(() => {
+    async function fetchAppointmentBgImageUrl() {
+      try {
+        const storageRef = firebase.storage().ref("Background_Images");
+        const imageRef = storageRef.child("Appointment-bg.jpg");
+        const url = await imageRef.getDownloadURL();
+        setAppointmentBgImageUrl(url); // Set the array of image URLs to state
+      } catch (error) {
+        console.error("Error fetching image URL:", error);
+      }
+    }
+
+    fetchAppointmentBgImageUrl();
+  }, []);
   return (
     <>
       {/* Appointment Start */}
       <div
         className="container-fluid bg-primary bg-appointment my-5 wow fadeInUp"
         data-wow-delay="0.1s"
+        style={{
+          backgroundImage: `linear-gradient(rgba(9, 30, 62, 0.85), rgba(9, 30, 62, 0.85)), url(${appointmentBgImageUrl})`,
+        }}
       >
         <div className="container">
           <div className="row gx-5">

@@ -9,13 +9,14 @@ import "owl.carousel/dist/assets/owl.carousel.min.css";
 import "owl.carousel/dist/assets/owl.theme.default.min.css";
 
 export function Pricing() {
+  const [priceImageUrls, setPriceImageUrls] = useState("");
+
   const [pricingContent, setPricingContent] = useState({
     title: "",
     description: "",
     contactNumber: "",
     pricingPlans: [],
   });
-  const [imageUrls, setImageUrls] = useState("");
 
   useEffect(() => {
     const fetchPricingContent = async () => {
@@ -30,7 +31,7 @@ export function Pricing() {
             Pricing_Title,
             Pricing_Description,
             Contact_Number,
-            Pricing_Plans,
+            Pricing_Plans,git 
           } = data;
           setPricingContent({
             title: Pricing_Title || "",
@@ -65,7 +66,7 @@ export function Pricing() {
           })
         );
 
-        setImageUrls(urls); // Set the array of image URLs to state
+        setPriceImageUrls(urls); // Set the array of image URLs to state
       } catch (error) {
         console.error("Error fetching image URLs:", error);
       }
@@ -93,14 +94,14 @@ export function Pricing() {
           </div>
 
           <div className="col-lg-7">
-            {imageUrls.length > 0 ? (
+            {priceImageUrls.length > 0 ? (
               <OwlCarousel
                 className="owl-theme price-carousel"
                 items="2"
                 autoplay={true}
                 loop
                 dots={false}
-                smartSpeed="1000"
+                smartSpeed="1500"
                 nav={true}
                 autoplayHoverPause
                 navText={[
@@ -122,7 +123,7 @@ export function Pricing() {
                       <img
                         className="img-fluid rounded-top"
                         key={index}
-                        src={imageUrls[index]}
+                        src={priceImageUrls[index]}
                         alt={`Image ${index + 1}`}
                       />
                       <div

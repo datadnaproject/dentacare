@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-import teamImg1 from "../assets/img/team-1.jpg";
 
 import React, { useState, useEffect } from "react";
 import firebase from "firebase/compat/app";
@@ -7,6 +6,8 @@ import "firebase/compat/auth";
 import "firebase/compat/database";
 import "firebase/compat/firestore";
 export function Team() {
+  const [teamImageUrls, setTeamImageUrls] = useState([]);
+
   const [teamContent, setTeamContent] = useState({
     title: "",
     teamMembers: [],
@@ -35,6 +36,26 @@ export function Team() {
     };
 
     fetchTeamContent();
+  }, []);
+
+  // Add the useEffect hook to fetch image URLs for team section
+  useEffect(() => {
+    const fetchTeamImageUrls = async () => {
+      try {
+        const storageRef = firebase.storage().ref("Team_Section");
+        const listResult = await storageRef.listAll();
+        const urls = await Promise.all(
+          listResult.items.map(async (itemRef) => {
+            return await itemRef.getDownloadURL();
+          })
+        );
+        setTeamImageUrls(urls);
+      } catch (error) {
+        console.error("Error fetching image URLs:", error);
+      }
+    };
+
+    fetchTeamImageUrls();
   }, []);
   return (
     <>
@@ -71,8 +92,8 @@ export function Team() {
                   >
                     <img
                       className="img-fluid rounded-top w-100"
-                      src={teamImg1}
-                      alt=""
+                      src={teamImageUrls[index - 1]}
+                      alt={`Image ${index}`}
                     />
                     <div className="position-absolute top-100 start-50 translate-middle bg-light rounded p-2 d-flex">
                       <NavLink
@@ -110,134 +131,6 @@ export function Team() {
                 </div>
               </div>
             ))}
-            {/* <div className="col-lg-4 wow slideInUp" data-wow-delay="0.6s">
-              <div className="team-item">
-                <div
-                  className="position-relative rounded-top"
-                  style={{ zIndex: 1 }}
-                >
-                  <img
-                    className="img-fluid rounded-top w-100"
-                    src={team2}
-                    alt=""
-                  />
-                  <div className="position-absolute top-100 start-50 translate-middle bg-light rounded p-2 d-flex">
-                    <NavLink className="btn btn-primary btn-square m-1" to="#">
-                      <i className="fab fa-twitter fw-normal" />
-                    </NavLink>
-                    <NavLink className="btn btn-primary btn-square m-1" to="#">
-                      <i className="fab fa-facebook-f fw-normal" />
-                    </NavLink>
-                    <NavLink className="btn btn-primary btn-square m-1" to="#">
-                      <i className="fab fa-linkedin-in fw-normal" />
-                    </NavLink>
-                    <NavLink className="btn btn-primary btn-square m-1" to="#">
-                      <i className="fab fa-instagram fw-normal" />
-                    </NavLink>
-                  </div>
-                </div>
-                <div className="team-text position-relative bg-light text-center rounded-bottom p-4 pt-5">
-                  <h4 className="mb-2">Dr. John Doe</h4>
-                  <p className="text-primary mb-0">Implant Surgeon</p>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-4 wow slideInUp" data-wow-delay="0.1s">
-              <div className="team-item">
-                <div
-                  className="position-relative rounded-top"
-                  style={{ zIndex: 1 }}
-                >
-                  <img
-                    className="img-fluid rounded-top w-100"
-                    src={team3}
-                    alt=""
-                  />
-                  <div className="position-absolute top-100 start-50 translate-middle bg-light rounded p-2 d-flex">
-                    <NavLink className="btn btn-primary btn-square m-1" to="#">
-                      <i className="fab fa-twitter fw-normal" />
-                    </NavLink>
-                    <NavLink className="btn btn-primary btn-square m-1" to="#">
-                      <i className="fab fa-facebook-f fw-normal" />
-                    </NavLink>
-                    <NavLink className="btn btn-primary btn-square m-1" to="#">
-                      <i className="fab fa-linkedin-in fw-normal" />
-                    </NavLink>
-                    <NavLink className="btn btn-primary btn-square m-1" to="#">
-                      <i className="fab fa-instagram fw-normal" />
-                    </NavLink>
-                  </div>
-                </div>
-                <div className="team-text position-relative bg-light text-center rounded-bottom p-4 pt-5">
-                  <h4 className="mb-2">Dr. John Doe</h4>
-                  <p className="text-primary mb-0">Implant Surgeon</p>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-4 wow slideInUp" data-wow-delay="0.3s">
-              <div className="team-item">
-                <div
-                  className="position-relative rounded-top"
-                  style={{ zIndex: 1 }}
-                >
-                  <img
-                    className="img-fluid rounded-top w-100"
-                    src={team4}
-                    alt=""
-                  />
-                  <div className="position-absolute top-100 start-50 translate-middle bg-light rounded p-2 d-flex">
-                    <NavLink className="btn btn-primary btn-square m-1" to="#">
-                      <i className="fab fa-twitter fw-normal" />
-                    </NavLink>
-                    <NavLink className="btn btn-primary btn-square m-1" to="#">
-                      <i className="fab fa-facebook-f fw-normal" />
-                    </NavLink>
-                    <NavLink className="btn btn-primary btn-square m-1" to="#">
-                      <i className="fab fa-linkedin-in fw-normal" />
-                    </NavLink>
-                    <NavLink className="btn btn-primary btn-square m-1" to="#">
-                      <i className="fab fa-instagram fw-normal" />
-                    </NavLink>
-                  </div>
-                </div>
-                <div className="team-text position-relative bg-light text-center rounded-bottom p-4 pt-5">
-                  <h4 className="mb-2">Dr. John Doe</h4>
-                  <p className="text-primary mb-0">Implant Surgeon</p>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-4 wow slideInUp" data-wow-delay="0.6s">
-              <div className="team-item">
-                <div
-                  className="position-relative rounded-top"
-                  style={{ zIndex: 1 }}
-                >
-                  <img
-                    className="img-fluid rounded-top w-100"
-                    src={team5}
-                    alt=""
-                  />
-                  <div className="position-absolute top-100 start-50 translate-middle bg-light rounded p-2 d-flex">
-                    <NavLink className="btn btn-primary btn-square m-1" to="#">
-                      <i className="fab fa-twitter fw-normal" />
-                    </NavLink>
-                    <NavLink className="btn btn-primary btn-square m-1" to="#">
-                      <i className="fab fa-facebook-f fw-normal" />
-                    </NavLink>
-                    <NavLink className="btn btn-primary btn-square m-1" to="#">
-                      <i className="fab fa-linkedin-in fw-normal" />
-                    </NavLink>
-                    <NavLink className="btn btn-primary btn-square m-1" to="#">
-                      <i className="fab fa-instagram fw-normal" />
-                    </NavLink>
-                  </div>
-                </div>
-                <div className="team-text position-relative bg-light text-center rounded-bottom p-4 pt-5">
-                  <h4 className="mb-2">Dr. John Doe</h4>
-                  <p className="text-primary mb-0">Implant Surgeon</p>
-                </div>
-              </div>
-            </div> */}
           </div>
         </div>
       </div>

@@ -1,5 +1,3 @@
-import aboutImg from "../assets/img/about.jpg";
-
 import React, { useState, useEffect } from "react";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
@@ -7,6 +5,8 @@ import "firebase/compat/database";
 import "firebase/compat/firestore";
 
 export function About() {
+  const [aboutImageUrl, setAboutImageUrl] = useState("");
+
   const [aboutContent, setAboutContent] = useState({
     title: "",
     description: "",
@@ -38,6 +38,22 @@ export function About() {
     };
 
     fetchAboutContent();
+  }, []);
+
+  // fetch images from storage
+  useEffect(() => {
+    async function fetchAboutImageUrl() {
+      try {
+        const storageRef = firebase.storage().ref("About_Section");
+        const imageRef = storageRef.child("about.jpg");
+        const url = await imageRef.getDownloadURL();
+        setAboutImageUrl(url); // Set the array of image URLs to state
+      } catch (error) {
+        console.error("Error fetching image URL:", error);
+      }
+    }
+
+    fetchAboutImageUrl();
   }, []);
 
   return (
@@ -89,12 +105,15 @@ export function About() {
             </div>
             <div className="col-lg-5" style={{ minHeight: 500 }}>
               <div className="position-relative h-100">
-                <img
-                  className="position-absolute w-100 h-100 rounded wow zoomIn"
-                  data-wow-delay="0.9s"
-                  src={aboutImg}
-                  style={{ objectFit: "cover" }}
-                />
+                {aboutImageUrl && (
+                  <img
+                    className="position-absolute w-100 h-100 rounded wow zoomIn"
+                    data-wow-delay="0.9s"
+                    src={aboutImageUrl}
+                    style={{ objectFit: "cover" }}
+                    alt={`About Img`}
+                  />
+                )}
               </div>
             </div>
           </div>

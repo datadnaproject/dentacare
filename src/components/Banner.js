@@ -55,7 +55,7 @@ export function Banner() {
   const [data, setData] = useState([]);
   const [appointmentsData, setAppointmentsData] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState("");
-  const [doctorOptions1, setDoctorOptions1] = useState([]);
+  // const [doctorOptions1, setdoctorOptions] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
   const [fromDate, setFromDate] = useState(todayString);
   const [toDate, setToDate] = useState(todayString);
@@ -82,7 +82,7 @@ export function Banner() {
       const doctors = snapshot.val();
       if (doctors) {
         const doctorNames = Object.values(doctors);
-        setDoctorOptions1(doctorNames);
+        setDoctorOptions(doctorNames);
 
         if (doctorNames.length > 0) {
           setDoctorName(doctorNames[0]);
@@ -191,27 +191,6 @@ export function Banner() {
       });
   };
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const dbRef = firebase.database().ref("adminData");
-  //     dbRef.once("value", (snapshot) => {
-  //       const data = snapshot.val();
-  //       if (data) {
-  //         const dataArray = Object.values(data);
-  //         setData(dataArray);
-  //       } else {
-  //         setData([]);
-  //       }
-  //     });
-  //   };
-
-  //   fetchData();
-
-  //   return () => {
-  //     firebase.database().ref("adminData").off();
-  //   };
-  // }, []);
-
   return (
     <>
       {/* Banner Start */}
@@ -259,7 +238,7 @@ export function Banner() {
                               value={formData2.Appointmenttab_doctorname}
                               onChange={handleDoctorNameChange1}
                             >
-                              {doctorOptions1.map((doctor, index) => (
+                              {doctorOptions.map((doctor, index) => (
                                 <option key={index} style={{ color: "black" }}>
                                   {doctor}
                                 </option>

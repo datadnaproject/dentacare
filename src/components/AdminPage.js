@@ -11,9 +11,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
-
-import "./Banner";
 
 import {
   PDFDownloadLink,
@@ -53,7 +50,7 @@ function AdminPage() {
   const [data, setData] = useState([]);
   const [appointmentsData, setAppointmentsData] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState("");
-  const [doctorOptions1, setDoctorOptions1] = useState([]);
+  // const [doctorOptions1, setdoctorOptions1] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
   const [fromDate, setFromDate] = useState(todayString);
   const [toDate, setToDate] = useState(todayString);
@@ -64,7 +61,7 @@ function AdminPage() {
       const doctors = snapshot.val();
       if (doctors) {
         const doctorNames = Object.values(doctors);
-        setDoctorOptions1(doctorNames);
+        setDoctorOptions(doctorNames);
 
         if (doctorNames.length > 0) {
           setDoctorName(doctorNames[0]);
@@ -351,7 +348,7 @@ function AdminPage() {
                   Book <span>Appointment</span>
                 </h4>
                 <div className="form-row ">
-                  {doctorOptions1.length > 0 && (
+                  {doctorOptions.length > 0 && (
                     <div className="form-group col-lg-4">
                       <label htmlFor="inputDoctorName">Doctor Name</label>
                       <select
@@ -361,7 +358,7 @@ function AdminPage() {
                         value={doctorName}
                         onChange={(e) => setDoctorName(e.target.value)}
                       >
-                        {doctorOptions1.map((doctor, index) => (
+                        {doctorOptions.map((doctor, index) => (
                           <option key={index}>{doctor}</option>
                         ))}
                       </select>
@@ -552,7 +549,7 @@ function AdminPage() {
                 onChange={(e) => setSelectedDoctor(e.target.value)}
               >
                 <option value="">All</option>
-                {doctorOptions1.map((doctor, index) => (
+                {doctorOptions.map((doctor, index) => (
                   <option key={index}>{doctor}</option>
                 ))}
               </select>

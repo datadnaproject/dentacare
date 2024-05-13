@@ -6,6 +6,7 @@ import "firebase/compat/database";
 import "firebase/compat/firestore";
 
 export function Offer() {
+  const [offerBgImageUrl, setOfferBgImageUrl] = useState(null);
   const [offerContent, setOfferContent] = useState({
     title: "",
     description: "",
@@ -14,13 +15,10 @@ export function Offer() {
   useEffect(() => {
     const fetchOfferContent = async () => {
       try {
-        const snapshot = await firebase
-          .database()
-          .ref("Offer")
-          .once("value");
+        const snapshot = await firebase.database().ref("Offer").once("value");
         if (snapshot.exists()) {
           const data = snapshot.val();
-          const { Offer_Title, Offer_Description} = data;
+          const { Offer_Title, Offer_Description } = data;
 
           setOfferContent({
             title: Offer_Title || "",
@@ -36,23 +34,38 @@ export function Offer() {
 
     fetchOfferContent();
   }, []);
+
+  // fetch images from storage
+  useEffect(() => {
+    async function fetchOfferBgImageUrl() {
+      try {
+        const storageRef = firebase.storage().ref("Background_Images");
+        const imageRef = storageRef.child("Offer-bg.jpg");
+        const url = await imageRef.getDownloadURL();
+        setOfferBgImageUrl(url); // Set the array of image URLs to state
+      } catch (error) {
+        console.error("Error fetching image URL:", error);
+      }
+    }
+
+    fetchOfferBgImageUrl();
+  }, []);
   return (
     <>
       {/* Offer Start */}
       <div
         className="container-fluid bg-offer my-5 py-5 wow fadeInUp"
         data-wow-delay="0.1s"
+        style={{
+          backgroundImage: `url(${offerBgImageUrl})`,
+        }}
       >
         <div className="container py-5">
           <div className="row justify-content-center">
             <div className="col-lg-7 wow zoomIn" data-wow-delay="0.6s">
               <div className="offer-text text-center rounded p-5">
-                <h1 className="display-5 text-white">
-                  {offerContent.title}
-                </h1>
-                <p className="text-white mb-4">
-                  {offerContent.description}
-                </p>
+                <h1 className="display-5 text-white">{offerContent.title}</h1>
+                <p className="text-white mb-4">{offerContent.description}</p>
                 <NavLink
                   to="/appointment"
                   className="btn btn-dark py-3 px-5 me-3"

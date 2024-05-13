@@ -5,11 +5,13 @@ import "firebase/compat/database";
 import "firebase/compat/firestore";
 
 import ReactCompareImage from "react-compare-image";
-import beforeImage from "../assets/img/before.jpg";
-import afterImage from "../assets/img/after.jpg";
-import serviceImg1 from "../assets/img/service-1.jpg";
 
 export function Service() {
+  // states for image URLs
+  const [afterImageUrl, setAfterImageUrl] = useState(null);
+  const [beforeImageUrl, setBeforeImageUrl] = useState(null);
+  const [serviceImageUrls, setServiceImageUrls] = useState([]);
+
   const [serviceContent, setServiceContent] = useState({
     title: "",
     appointment: "",
@@ -43,6 +45,54 @@ export function Service() {
     };
     fetchServiceContent();
   }, []);
+
+  // Add the useEffect hook to fetch image URLs for Compare_Images section
+  useEffect(() => {
+    const fetchCompareImageUrls = async () => {
+      try {
+        const storageRef = firebase
+          .storage()
+          .ref("Service_Section/Compare_Images");
+
+        // Fetch download URL for "after.jpg"
+        const afterImageRef = storageRef.child("after.jpg");
+        const afterUrl = await afterImageRef.getDownloadURL();
+        setAfterImageUrl(afterUrl);
+
+        // Fetch download URL for "before.jpg"
+        const beforeImageRef = storageRef.child("before.jpg");
+        const beforeUrl = await beforeImageRef.getDownloadURL();
+        setBeforeImageUrl(beforeUrl);
+      } catch (error) {
+        console.error("Error fetching compare image URLs:", error);
+      }
+    };
+
+    fetchCompareImageUrls();
+  }, []);
+
+  // Add the useEffect hook to fetch image URLs for service section
+  useEffect(() => {
+    const fetchServiceImageUrls = async () => {
+      try {
+        const storageRef = firebase
+          .storage()
+          .ref("Service_Section/Service_Images");
+        const listResult = await storageRef.listAll();
+        const urls = await Promise.all(
+          listResult.items.map(async (itemRef) => {
+            return await itemRef.getDownloadURL();
+          })
+        );
+        setServiceImageUrls(urls);
+      } catch (error) {
+        console.error("Error fetching service image URLs:", error);
+      }
+    };
+
+    fetchServiceImageUrls();
+  }, []);
+
   return (
     <>
       {/* Service Start */}
@@ -55,25 +105,13 @@ export function Service() {
               style={{ minHeight: 400 }}
             >
               <ReactCompareImage
-                leftImage={beforeImage}
-                rightImage={afterImage}
+                leftImage={beforeImageUrl}
+                rightImage={afterImageUrl}
                 leftImageAlt="Before"
                 rightImageAlt="After"
                 leftImageLabel="Before"
                 rightImageLabel="After"
               />
-              {/* <div className="demo twentytwenty-container position-relative h-100 rounded overflow-hidden">
-                <img
-                  className="position-absolute w-100 h-100"
-                  src={beforeimage}
-                  style={{ objectFit: "cover" }}
-                />
-                <img
-                  className="position-absolute w-100 h-100"
-                  src={afterimage}
-                  style={{ objectFit: "cover" }}
-                />
-              </div> */}
             </div>
             <div className="col-lg-7">
               <div className="section-title mb-5">
@@ -92,24 +130,17 @@ export function Service() {
                       data-wow-delay="0.6s"
                     >
                       <div className="rounded-top overflow-hidden">
-                        <img className="img-fluid" src={serviceImg1} alt="" />
+                        <img
+                          className="img-fluid"
+                          src={serviceImageUrls[index - 1]}
+                          alt={`Image ${index}`}
+                        />
                       </div>
                       <div className="position-relative bg-light rounded-bottom text-center p-4">
                         <h5 className="m-0">{service.title}</h5>
                       </div>
                     </div>
                   ))}
-                {/* <div
-                  className="col-md-6 service-item wow zoomIn"
-                  data-wow-delay="0.9s"
-                >
-                  <div className="rounded-top overflow-hidden">
-                    <img className="img-fluid" src={serviveimage2} alt="" />
-                  </div>
-                  <div className="position-relative bg-light rounded-bottom text-center p-4">
-                    <h5 className="m-0">Dental Implants</h5>
-                  </div>
-                </div> */}
               </div>
             </div>
           </div>
@@ -123,24 +154,17 @@ export function Service() {
                     data-wow-delay="0.3s"
                   >
                     <div className="rounded-top overflow-hidden">
-                      <img className="img-fluid" src={serviceImg1} alt="" />
+                      <img
+                        className="img-fluid"
+                        src={serviceImageUrls[index + 2]}
+                        alt={`Image ${index + 2}`}
+                      />
                     </div>
                     <div className="position-relative bg-light rounded-bottom text-center p-4">
                       <h5 className="m-0">{service.title}</h5>
                     </div>
                   </div>
                 ))}
-                {/* <div
-                  className="col-md-6 service-item wow zoomIn"
-                  data-wow-delay="0.6s"
-                >
-                  <div className="rounded-top overflow-hidden">
-                    <img className="img-fluid" src={serviveimage4} alt="" />
-                  </div>
-                  <div className="position-relative bg-light rounded-bottom text-center p-4">
-                    <h5 className="m-0">Teeth Whitening</h5>
-                  </div>
-                </div> */}
               </div>
             </div>
             <div

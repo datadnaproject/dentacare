@@ -211,8 +211,7 @@ h6,
 }
 
 .bg-appointment {
-  background: linear-gradient(rgba(9, 30, 62, 0.85), rgba(9, 30, 62, 0.85)),
-    url(/src/assets/img/carousel-1.jpg) center center no-repeat;
+  background: center center no-repeat;
   background-size: cover;
 }
 
@@ -253,7 +252,7 @@ h6,
 }
 
 .bg-offer {
-  background: url(/src/assets/img/carousel-1.jpg) center center no-repeat;
+  background: center center no-repeat;
   background-size: cover;
 }
 
@@ -302,7 +301,7 @@ h6,
 }
 
 .bg-testimonial {
-  background: url(/src/assets/img/carousel-2.jpg) center center no-repeat;
+  background: center center no-repeat;
   background-size: cover;
 }
 
