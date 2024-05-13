@@ -31,7 +31,8 @@ export function Pricing() {
             Pricing_Title,
             Pricing_Description,
             Contact_Number,
-            Pricing_Plans,git 
+            Pricing_Plans,
+            git,
           } = data;
           setPricingContent({
             title: Pricing_Title || "",
@@ -103,7 +104,6 @@ export function Pricing() {
                 dots={false}
                 smartSpeed="1500"
                 nav={true}
-                autoplayHoverPause
                 navText={[
                   `<i class="bi bi-arrow-left"></i>`,
                   `<i class="bi bi-arrow-right"></i>`,

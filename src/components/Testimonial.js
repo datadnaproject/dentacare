@@ -99,7 +99,6 @@ export function Testimonial() {
                 dots={false}
                 smartSpeed="1500"
                 nav={true}
-                autoplayHoverPause
                 navText={[
                   `<i class="bi bi-arrow-left"></i>`,
                   `<i class="bi bi-arrow-right"></i>`,
