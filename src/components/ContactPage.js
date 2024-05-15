@@ -1,6 +1,5 @@
 import { Navbar } from "./Navbar";
 import { Topbar } from "./Topbar";
-import { FullSearch } from "./FullSearch";
 import { Contact } from "./Contact";
 import { Newsletter } from "./Newsletter";
 import { Footer } from "./Footer";
@@ -12,7 +11,6 @@ export function ContactPage() {
     <> 
       <Topbar />
       <Navbar />
-      <FullSearch />
       <Header pageTitle="Contact Us" subTitle="Contact" />
       <Contact />
       <Newsletter />

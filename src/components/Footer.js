@@ -56,28 +56,16 @@ export function Footer() {
               <div className="d-flex flex-column justify-content-start">
                 {footerContent.footers.Footer_1?.Footer_Links.map(
                   (link, index) => (
-                    <NavLink key={index} className="text-light mb-2" href="#">
-                      <i className="bi bi-arrow-right text-primary me-2" />{" "}
+                    <NavLink
+                      key={index}
+                      className="text-light mb-2"
+                      to={link.Url}
+                    >
+                      <i className="bi bi-arrow-right text-primary me-2" />
                       {link.Link}
                     </NavLink>
                   )
                 )}
-                {/* <NavLink className="text-light mb-2" href="#">
-                  <i className="bi bi-arrow-right text-primary me-2" />
-                  About Us
-                </NavLink>
-                <NavLink className="text-light mb-2" href="#">
-                  <i className="bi bi-arrow-right text-primary me-2" />
-                  Our Services
-                </NavLink>
-                <NavLink className="text-light mb-2" href="#">
-                  <i className="bi bi-arrow-right text-primary me-2" />
-                  Latest Blog
-                </NavLink>
-                <NavLink className="text-light" href="#">
-                  <i className="bi bi-arrow-right text-primary me-2" />
-                  Contact Us
-                </NavLink> */}
               </div>
             </div>
             <div className="col-lg-3 col-md-6">
@@ -85,30 +73,18 @@ export function Footer() {
                 {footerContent.footers.Footer_2?.Title}
               </h3>
               <div className="d-flex flex-column justify-content-start">
-                {footerContent.footers.Footer_1?.Footer_Links.map(
+                {footerContent.footers.Footer_2?.Footer_Links.map(
                   (link, index) => (
-                    <NavLink key={index} className="text-light mb-2" href="#">
+                    <NavLink
+                      key={index}
+                      className="text-light mb-2"
+                      to={link.Url}
+                    >
                       <i className="bi bi-arrow-right text-primary me-2" />
                       {link.Link}
                     </NavLink>
                   )
                 )}
-                {/* <NavLink className="text-light mb-2" href="#">
-                  <i className="bi bi-arrow-right text-primary me-2" />
-                  About Us
-                </NavLink>
-                <NavLink className="text-light mb-2" href="#">
-                  <i className="bi bi-arrow-right text-primary me-2" />
-                  Our Services
-                </NavLink>
-                <NavLink className="text-light mb-2" href="#">
-                  <i className="bi bi-arrow-right text-primary me-2" />
-                  Latest Blog
-                </NavLink>
-                <NavLink className="text-light" href="#">
-                  <i className="bi bi-arrow-right text-primary me-2" />
-                  Contact Us
-                </NavLink> */}
               </div>
             </div>
             <div className="col-lg-3 col-md-6">

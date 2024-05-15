@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { Topbar } from "./Topbar";
 import { Navbar } from "./Navbar";
-import { FullSearch } from "./FullSearch";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/database";
 import "firebase/compat/firestore";
+
+import { Newsletter } from "./Newsletter";
+import { Footer } from "./Footer";
 
 function Profile() {
   const [firstName, setFirstName] = useState("");
@@ -89,13 +91,36 @@ function Profile() {
         setMessage("Error updating profile");
       });
   };
+
+  const [headerBgImageUrl, setHeaderBgImageUrl] = useState(null);
+
+  // fetch images from storage
+  useEffect(() => {
+    async function fetchHeaderBgImageUrl() {
+      try {
+        const storageRef = firebase.storage().ref("Background_Images");
+        const imageRef = storageRef.child("Header-bg.jpg");
+        const url = await imageRef.getDownloadURL();
+        setHeaderBgImageUrl(url); // Set the array of image URLs to state
+      } catch (error) {
+        console.error("Error fetching image URL:", error);
+      }
+    }
+
+    fetchHeaderBgImageUrl();
+  }, []);
   return (
     <>
       <Topbar />
       <Navbar />
-      <FullSearch />
       {/* Header Start */}
-      <div className="container-fluid bg-primary py-5 hero-header mb-5">
+      <div
+        className="container-fluid bg-primary py-5 hero-header mb-5"
+        style={{
+          backgroundImage: `linear-gradient(rgba(9, 30, 62, 0.85), rgba(9, 30, 62, 0.85)),
+        url(${headerBgImageUrl})`,
+        }}
+      >
         <div className="row py-3">
           <div className="col-12 text-center">
             <h1 className="display-3 text-white animated zoomIn">My Profile</h1>
@@ -218,6 +243,8 @@ function Profile() {
           </div>
         </section>
       </div>
+      <Newsletter />
+      <Footer />
       {/* Profile details end */}
     </>
   );

@@ -219,13 +219,14 @@ export function Contact() {
             >
               <iframe
                 className="position-relative rounded w-100 h-100"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3001156.4288297426!2d-78.01371936852176!3d42.72876761954724!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4ccc4bf0f123a5a9%3A0xddcfc6c1de189567!2sNew%20York%2C%20USA!5e0!3m2!1sen!2sbd!4v1603794290143!5m2!1sen!2sbd"
-                frameBorder={0}
-                style={{ minHeight: 400, border: 0 }}
-                aria-hidden="false"
-                tabIndex={0}
-                title="Google Maps"
-              />
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3890.6428960658045!2d80.21951977483833!3d12.80167628749832!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a52510b7ea14dbd%3A0x49b38c5db4767675!2sDataDNA!5e0!3m2!1sen!2sin!4v1715751776232!5m2!1sen!2sin"
+                width="400"
+                height="300"
+                style={{ border: 0 }}
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
             </div>
           </div>
         </div>

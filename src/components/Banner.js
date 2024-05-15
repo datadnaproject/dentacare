@@ -63,7 +63,7 @@ export function Banner() {
   //form appointment
   const [timeOptions2, setTimeOptions2] = useState([]);
   const [successMessage3, setSuccessMessage3] = useState("");
-  const [modalVisible, setModalVisible] = useState();
+  const [modalVisible, setModalVisible] = useState(false);
 
   const [formData2, setFormData2] = useState({
     Appointmenttab_id: 0, // Initial id value

@@ -79,8 +79,11 @@ export function Navbar() {
         >
           <span className="navbar-toggler-icon" />
         </button>
-        <div className="collapse navbar-collapse" id="navbarCollapse">
-          <div className="navbar-nav ms-auto py-0">
+        <div
+          className="collapse navbar-collapse text-center"
+          id="navbarCollapse"
+        >
+          <div className="navbar-nav ms-auto py-0 ">
             {/* Other NavLinks */}
             <NavLink to="/" className="nav-item nav-link">
               Home
@@ -92,13 +95,13 @@ export function Navbar() {
               Service
             </NavLink>
             <div className="nav-item dropdown">
-              <NavLink
+              <a
                 to="#"
                 className="nav-link dropdown-toggle"
                 data-bs-toggle="dropdown"
               >
                 Pages
-              </NavLink>
+              </a>
               <div className="dropdown-menu m-0">
                 <NavLink to="/pricing" className="dropdown-item">
                   Pricing Plan
@@ -109,26 +112,15 @@ export function Navbar() {
                 <NavLink to="/testimonial" className="dropdown-item">
                   Testimonial
                 </NavLink>
-                <NavLink to="/appointment" className="dropdown-item">
-                  Appointment
-                </NavLink>
               </div>
             </div>
             <NavLink to="/contact" className="nav-item nav-link">
               Contact
             </NavLink>
           </div>
-          <button
-            type="button"
-            className="btn text-dark"
-            data-bs-toggle="modal"
-            data-bs-target="#searchModal"
-          >
-            <i className="fa fa-search" />
-          </button>
-          <NavLink to="/appointment" className="btn btn-primary py-2 px-4 ms-3">
+          {/* <NavLink to="/appointment" className="btn btn-primary py-2 px-4 ms-3">
             Appointment
-          </NavLink>
+          </NavLink> */}
 
           {/* Sign In Button */}
           <NavLink

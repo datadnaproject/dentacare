@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Topbar } from "./Topbar";
 import { Navbar } from "./Navbar";
+import { Newsletter } from "./Newsletter";
+import { Footer } from "./Footer";
 
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
@@ -232,6 +234,25 @@ function AdminPage() {
       firebase.database().ref("Appointment_tab").off();
     };
   }, []);
+
+  const [headerBgImageUrl, setHeaderBgImageUrl] = useState(null);
+
+  // fetch images from storage
+  useEffect(() => {
+    async function fetchHeaderBgImageUrl() {
+      try {
+        const storageRef = firebase.storage().ref("Background_Images");
+        const imageRef = storageRef.child("Header-bg.jpg");
+        const url = await imageRef.getDownloadURL();
+        setHeaderBgImageUrl(url); // Set the array of image URLs to state
+      } catch (error) {
+        console.error("Error fetching image URL:", error);
+      }
+    }
+
+    fetchHeaderBgImageUrl();
+  }, []);
+
   // export in pdf
 
   const PDFDocument = ({ data }) => (
@@ -334,13 +355,30 @@ function AdminPage() {
     <>
       <Topbar />
       <Navbar />
+      {/* Header Start */}
+      <div
+        className="container-fluid bg-primary py-5 hero-header mb-5"
+        style={{
+          backgroundImage: `linear-gradient(rgba(9, 30, 62, 0.85), rgba(9, 30, 62, 0.85)),
+        url(${headerBgImageUrl})`,
+        }}
+      >
+        <div className="row py-3">
+          <div className="col-12 text-center">
+            <h1 className="display-3 text-white animated zoomIn">
+              Admin Update
+            </h1>
+          </div>
+        </div>
+      </div>
+      {/* Header End */}
       <section className="ftco-section">
         <div className="container">
-          <div className="row justify-content-center mb-5 pb-5">
+          {/* <div className="row justify-content-center mb-5 pb-5">
             <div className="col-md-7 text-center heading-section ftco-animate">
               <h2 className="mb-2">Admin Update</h2>
             </div>
-          </div>
+          </div> */}
           <div className="row">
             <div className="col">
               <form onSubmit={handleSubmit} className="admin_form">
@@ -597,6 +635,8 @@ function AdminPage() {
           </div>
         </div>
       </section>
+      <Newsletter />
+      <Footer />
     </>
   );
 }

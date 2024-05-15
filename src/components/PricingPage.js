@@ -1,6 +1,5 @@
 import { Topbar } from "./Topbar";
 import { Navbar } from "./Navbar";
-import { FullSearch } from "./FullSearch";
 import { Header } from "./Header";
 import { Pricing } from "./Pricing";
 import { Newsletter } from "./Newsletter";
@@ -12,7 +11,6 @@ export function PricingPage() {
     <>
       <Topbar />
       <Navbar />
-      <FullSearch />
       <Header pageTitle="Pricing" subTitle="Pricing" />
       <Pricing />
       <Newsletter />

@@ -2,9 +2,7 @@ import { Navbar } from "./Navbar";
 import { Topbar } from "./Topbar";
 import { Hero } from "./Hero";
 import { Banner } from "./Banner";
-import { FullSearch } from "./FullSearch";
 import { About } from "./About";
-import { Appointment } from "./Appointment";
 import { Service } from "./Service";
 import { Offer } from "./Offer";
 import { Pricing } from "./Pricing";
@@ -18,11 +16,9 @@ export function HomePage() {
     <>
       <Topbar />
       <Navbar />
-      <FullSearch />
       <Hero />
       <Banner />
       <About />
-      <Appointment />
       <Service />
       <Offer />
       <Pricing />

@@ -1,6 +1,5 @@
 import { Topbar } from "./Topbar";
 import { Navbar } from "./Navbar";
-import { FullSearch } from "./FullSearch";
 import { Header } from "./Header";
 import { Team } from "./Team";
 import { Newsletter } from "./Newsletter";
@@ -12,7 +11,6 @@ export function TeamPage() {
     <>
       <Topbar />
       <Navbar />
-      <FullSearch />
       <Header pageTitle="Dentist" subTitle="Dentist" />
       <Team />
       <Newsletter />

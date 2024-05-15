@@ -5,11 +5,13 @@ import "firebase/compat/database";
 import "firebase/compat/firestore";
 
 import ReactCompareImage from "react-compare-image";
+import beforeImage from "../assets/img/before.jpg";
+import afterImage from "../assets/img/after.jpg";
 
 export function Service() {
   // states for image URLs
-  const [afterImageUrl, setAfterImageUrl] = useState(null);
-  const [beforeImageUrl, setBeforeImageUrl] = useState(null);
+  // const [afterImageUrl, setAfterImageUrl] = useState(null);
+  // const [beforeImageUrl, setBeforeImageUrl] = useState(null);
   const [serviceImageUrls, setServiceImageUrls] = useState([]);
 
   const [serviceContent, setServiceContent] = useState({
@@ -47,29 +49,29 @@ export function Service() {
   }, []);
 
   // Add the useEffect hook to fetch image URLs for Compare_Images section
-  useEffect(() => {
-    const fetchCompareImageUrls = async () => {
-      try {
-        const storageRef = firebase
-          .storage()
-          .ref("Service_Section/Compare_Images");
+  // useEffect(() => {
+  //   const fetchCompareImageUrls = async () => {
+  //     try {
+  //       const storageRef = firebase
+  //         .storage()
+  //         .ref("Service_Section/Compare_Images");
 
-        // Fetch download URL for "after.jpg"
-        const afterImageRef = storageRef.child("after.jpg");
-        const afterUrl = await afterImageRef.getDownloadURL();
-        setAfterImageUrl(afterUrl);
+  //       // Fetch download URL for "after.jpg"
+  //       const afterImageRef = storageRef.child("after.jpg");
+  //       const afterUrl = await afterImageRef.getDownloadURL();
+  //       setAfterImageUrl(afterUrl);
 
-        // Fetch download URL for "before.jpg"
-        const beforeImageRef = storageRef.child("before.jpg");
-        const beforeUrl = await beforeImageRef.getDownloadURL();
-        setBeforeImageUrl(beforeUrl);
-      } catch (error) {
-        console.error("Error fetching compare image URLs:", error);
-      }
-    };
+  //       // Fetch download URL for "before.jpg"
+  //       const beforeImageRef = storageRef.child("before.jpg");
+  //       const beforeUrl = await beforeImageRef.getDownloadURL();
+  //       setBeforeImageUrl(beforeUrl);
+  //     } catch (error) {
+  //       console.error("Error fetching compare image URLs:", error);
+  //     }
+  //   };
 
-    fetchCompareImageUrls();
-  }, []);
+  //   fetchCompareImageUrls();
+  // }, []);
 
   // Add the useEffect hook to fetch image URLs for service section
   useEffect(() => {
@@ -105,8 +107,8 @@ export function Service() {
               style={{ minHeight: 400 }}
             >
               <ReactCompareImage
-                leftImage={beforeImageUrl}
-                rightImage={afterImageUrl}
+                leftImage={beforeImage}
+                rightImage={afterImage}
                 leftImageAlt="Before"
                 rightImageAlt="After"
                 leftImageLabel="Before"
