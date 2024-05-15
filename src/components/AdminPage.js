@@ -417,10 +417,10 @@ function AdminPage() {
                     </div>
                   </div>
                 </div>
-                <div className="form-row">
+                <div className="form-row row">
                   <div className="form-group col-lg-2">
                     <label htmlFor="fromTime">From</label>
-                    <div className="input-group date">
+                    <div className="input-group date ">
                       <select
                         className="form-control"
                         id="fromHour"

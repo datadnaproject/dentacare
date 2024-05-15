@@ -9,8 +9,7 @@ import "owl.carousel/dist/assets/owl.carousel.min.css";
 import "owl.carousel/dist/assets/owl.theme.default.min.css";
 
 export function Pricing() {
-  const [priceImageUrls, setPriceImageUrls] = useState("");
-
+  const [priceImageUrls, setPriceImageUrls] = useState([]);
   const [pricingContent, setPricingContent] = useState({
     title: "",
     description: "",
@@ -18,6 +17,7 @@ export function Pricing() {
     pricingPlans: [],
   });
 
+  // Fetch values from storage
   useEffect(() => {
     const fetchPricingContent = async () => {
       try {
@@ -32,13 +32,14 @@ export function Pricing() {
             Pricing_Description,
             Contact_Number,
             Pricing_Plans,
-            git,
           } = data;
           setPricingContent({
             title: Pricing_Title || "",
             description: Pricing_Description || "",
             contactNumber: Contact_Number || "",
-            pricingPlans: Pricing_Plans.filter((plan) => !!plan.Title) || [],
+            pricingPlans: Pricing_Plans
+              ? Pricing_Plans.filter((plan) => !!plan.Title)
+              : [],
           });
         } else {
           console.error("Pricing plan section content not found in database");
@@ -51,9 +52,9 @@ export function Pricing() {
     fetchPricingContent();
   }, []);
 
-  // fetch images from storage
+  // Fetch images from storage
   useEffect(() => {
-    async function fetchImageUrls() {
+    const fetchImageUrls = async () => {
       try {
         const storageRef = firebase.storage().ref("Pricing_Section");
 
@@ -66,14 +67,13 @@ export function Pricing() {
             return await itemRef.getDownloadURL();
           })
         );
-
-        setPriceImageUrls(urls); // Set the array of image URLs to state
+        setPriceImageUrls(urls);
       } catch (error) {
         console.error("Error fetching image URLs:", error);
       }
-    }
+    };
 
-    fetchImageUrls();
+    fetchImageUrls(); // Call the fetchImageUrls function here
   }, []);
 
   return (
