@@ -90,7 +90,7 @@ export function Testimonial() {
       <div className="container py-5">
         <div className="row justify-content-center">
           <div className="col-lg-7">
-            {testimonialImageUrls.length > 0 ? (
+            {testimonialContent.length > 0 ? (
               <OwlCarousel
                 className="owl-theme testimonial-carousel p-5"
                 items="1"

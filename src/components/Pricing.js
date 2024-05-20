@@ -95,7 +95,7 @@ export function Pricing() {
           </div>
 
           <div className="col-lg-7">
-            {priceImageUrls.length > 0 ? (
+            {pricingContent.pricingPlans.length > 0 ? (
               <OwlCarousel
                 className="owl-theme price-carousel"
                 items="2"
