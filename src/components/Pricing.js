@@ -16,6 +16,7 @@ export function Pricing() {
     contactNumber: "",
     pricingPlans: [],
   });
+  const [dataLoaded, setDataLoaded] = useState(false);
 
   // Fetch values from storage
   useEffect(() => {
@@ -76,6 +77,37 @@ export function Pricing() {
     fetchImageUrls(); // Call the fetchImageUrls function here
   }, []);
 
+  useEffect(() => {
+    // Check if all data is loaded
+    if (
+      pricingContent.pricingPlans.length > 0 &&
+      priceImageUrls.length === pricingContent.pricingPlans.length
+    ) {
+      setDataLoaded(true);
+    }
+  }, [pricingContent, priceImageUrls]);
+
+  const options = {
+    items: 1,
+    autoplay: true,
+    loop: true,
+    dots: false,
+    smartSpeed: 1500,
+    nav: true,
+    navText: [
+      `<i class="bi bi-arrow-left"></i>`,
+      `<i class="bi bi-arrow-right"></i>`,
+    ],
+    responsive: {
+      0: {
+        items: 1,
+      },
+      768: {
+        items: 2,
+      },
+    },
+  };
+
   return (
     <div className="container-fluid py-5">
       <div className="container">
@@ -95,28 +127,8 @@ export function Pricing() {
           </div>
 
           <div className="col-lg-7">
-            {pricingContent.pricingPlans.length > 0 ? (
-              <OwlCarousel
-                className="owl-theme price-carousel"
-                items="2"
-                autoplay={true}
-                loop
-                dots={false}
-                smartSpeed="1500"
-                nav={true}
-                navText={[
-                  `<i class="bi bi-arrow-left"></i>`,
-                  `<i class="bi bi-arrow-right"></i>`,
-                ]}
-                responsive={{
-                  0: {
-                    items: 1,
-                  },
-                  768: {
-                    items: 2,
-                  },
-                }}
-              >
+            {dataLoaded ? (
+              <OwlCarousel className="owl-theme price-carousel" {...options}>
                 {pricingContent.pricingPlans.map((plan, index) => (
                   <div key={index} className="item me-3 ms-3 mb-4">
                     <div className="position-relative">

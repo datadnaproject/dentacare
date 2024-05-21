@@ -3,6 +3,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/database";
 import "firebase/compat/firestore";
+import "firebase/compat/storage";
 
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.min.css";
@@ -12,6 +13,7 @@ export function Testimonial() {
   const [testimonialBgImageUrl, setTestimonialBgImageUrl] = useState(null);
   const [testimonialContent, setTestimonialContent] = useState([]);
   const [testimonialImageUrls, setTestimonialImageUrls] = useState([]);
+  const [dataLoaded, setDataLoaded] = useState(false);
 
   useEffect(() => {
     const fetchTestimonialContent = async () => {
@@ -38,7 +40,6 @@ export function Testimonial() {
     fetchTestimonialContent();
   }, []);
 
-  // fetch images from storage
   useEffect(() => {
     async function fetchTestimonialImageUrls() {
       try {
@@ -63,7 +64,6 @@ export function Testimonial() {
     fetchTestimonialImageUrls();
   }, []);
 
-  // fetch background image for testimonial
   useEffect(() => {
     async function fetchTestimonialBgImageUrl() {
       try {
@@ -79,6 +79,35 @@ export function Testimonial() {
     fetchTestimonialBgImageUrl();
   }, []);
 
+  useEffect(() => {
+    // Check if all data is loaded
+    if (
+      testimonialContent.length > 0 &&
+      testimonialImageUrls.length === testimonialContent.length &&
+      testimonialBgImageUrl
+    ) {
+      setDataLoaded(true);
+    }
+  }, [testimonialContent, testimonialImageUrls, testimonialBgImageUrl]);
+
+  const options = {
+    items: 1,
+    autoplay: true,
+    loop: true,
+    dots: false,
+    smartSpeed: 1500,
+    nav: true,
+    navText: [
+      `<i class="bi bi-arrow-left"></i>`,
+      `<i class="bi bi-arrow-right"></i>`,
+    ],
+    responsive: {
+      0: {
+        items: 1,
+      },
+    },
+  };
+
   return (
     <div
       className="container-fluid bg-primary bg-testimonial py-5 my-5 wow fadeInUp"
@@ -90,24 +119,10 @@ export function Testimonial() {
       <div className="container py-5">
         <div className="row justify-content-center">
           <div className="col-lg-7">
-            {testimonialContent.length > 0 ? (
+            {dataLoaded ? (
               <OwlCarousel
                 className="owl-theme testimonial-carousel p-5"
-                items="1"
-                autoplay={true}
-                loop
-                dots={false}
-                smartSpeed="1500"
-                nav={true}
-                navText={[
-                  `<i class="bi bi-arrow-left"></i>`,
-                  `<i class="bi bi-arrow-right"></i>`,
-                ]}
-                responsive={{
-                  0: {
-                    items: 1,
-                  },
-                }}
+                {...options}
               >
                 {testimonialContent.map((slide, index) => (
                   <div
@@ -115,7 +130,6 @@ export function Testimonial() {
                     className="testimonial-item text-center text-white"
                   >
                     <img
-                      key={index}
                       className="img-fluid mx-auto rounded mb-4"
                       src={testimonialImageUrls[index]}
                       alt={`Image ${index + 1}`}
